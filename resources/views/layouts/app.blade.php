@@ -17,6 +17,7 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <!-- <link href="{{ asset('material') }}/demo/demo.css" rel="stylesheet" /> -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/4.0.0/css/jasny-bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     @yield('css')
 
     </head>
@@ -149,6 +150,7 @@
         <!-- <script src="{{ asset('material') }}/demo/demo.js"></script> -->
         <script src="{{ asset('material') }}/js/settings.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/4.0.0/js/jasny-bootstrap.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
         @include('sweetalert::alert')
         @yield('js')
     </body>

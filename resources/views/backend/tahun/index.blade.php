@@ -19,87 +19,97 @@
                                     <!-- <div class="row text-center"> -->
                                     <div class="col-12">
 
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead class=" text-primary text-center">
-                                                <th>
-                                                    {{ __('No.') }}
-                                                </th>
-                                                <th>
-                                                    {{ __('Tahun') }}
-                                                </th>
-                                                <th>
-                                                    {{ __('Data') }}
-                                                </th>
-                                                <th>
-                                                    {{ __('Aksi') }}
-                                                </th>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($tahuns as $key => $tahun)
-                                                    <tr>
-                                                        <td>
-                                                            {{ ++$key }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $tahun->label }}
-                                                        </td>
-                                                        <td class="text-center">
-                                                          <strong >{{ $tahun->hasLongsor->count() }}</strong>
-                                                          <br>
-                                                          <a href="{{ route('longsor.index', $tahun->uuid) }}" class="btn btn-sm btn-success">
-                                                            <!-- <i class="material-icons">settings_applications</i> -->
-                                                            <div class="ripple-container"></div>
-                                                            {{ __('Kelola') }}
-                                                          </a>
-                                                        </td>
-                                                        <td class="td-actions text-center">
-                                                            <form action="{{ route('tahun.destroy', $tahun->id) }}"
-                                                                method="post">
-                                                                @csrf
-                                                                @method('delete')
-                                                                <a rel="tooltip" class="btn btn-md btn-info"
-                                                                    href="{{ route('tahun.show', $tahun->id) }}"
-                                                                    data-original-title="" title="">
-                                                                    <i class="material-icons">remove_red_eye</i>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="datatable">
+                                                <thead class="text-center">
+                                                    <th>
+                                                        {{ __('No.') }}
+                                                    </th>
+                                                    <th>
+                                                        {{ __('Tahun') }}
+                                                    </th>
+                                                    <th>
+                                                        {{ __('Data') }}
+                                                    </th>
+                                                    <th>
+                                                        {{ __('Aksi') }}
+                                                    </th>
+                                                </thead>
+                                                <tbody class="text-center">
+                                                    @foreach ($tahuns as $key => $tahun)
+                                                        <tr>
+                                                            <td>
+                                                                {{ ++$key }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $tahun->label }}
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <strong>{{ $tahun->hasLongsor->count() }}</strong>
+                                                                <br>
+                                                                <a href="{{ route('longsor.index', $tahun->uuid) }}"
+                                                                    class="btn btn-sm btn-success">
+                                                                    <!-- <i class="material-icons">settings_applications</i> -->
                                                                     <div class="ripple-container"></div>
-                                                                    Lihat
+                                                                    {{ __('Kelola') }}
                                                                 </a>
-                                                                <a rel="tooltip" class="btn btn-md btn-success"
-                                                                    href="{{ route('tahun.edit', $tahun->id) }}"
-                                                                    data-original-title="" title="">
-                                                                    <i class="material-icons">edit</i>
-                                                                    <div class="ripple-container"></div>
-                                                                    Edit
-                                                                </a>
-                                                                <button type="button" class="btn btn-md btn-danger"
-                                                                    data-original-title="" title=""
-                                                                    onclick="confirm('{{ __('Are you sure you want to delete this usaha?') }}') ? this.parentElement.submit() : ''">
-                                                                    <i class="material-icons">close</i>
-                                                                    <div class="ripple-container"></div>
-                                                                    Hapus
-                                                                </button>
-                                                            </form>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
+                                                            </td>
+                                                            <td class="td-actions text-center">
+                                                                <form action="{{ route('tahun.destroy', $tahun->id) }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    @method('delete')
+                                                                    <a rel="tooltip" class="btn btn-md btn-info"
+                                                                        href="{{ route('tahun.show', $tahun->id) }}"
+                                                                        data-original-title="" title="">
+                                                                        <i class="material-icons">remove_red_eye</i>
+                                                                        <div class="ripple-container"></div>
+                                                                        Lihat
+                                                                    </a>
+                                                                    <a rel="tooltip" class="btn btn-md btn-success"
+                                                                        href="{{ route('tahun.edit', $tahun->id) }}"
+                                                                        data-original-title="" title="">
+                                                                        <i class="material-icons">edit</i>
+                                                                        <div class="ripple-container"></div>
+                                                                        Edit
+                                                                    </a>
+                                                                    <button type="button" class="btn btn-md btn-danger"
+                                                                        data-original-title="" title=""
+                                                                        onclick="confirm('{{ __('Are you sure you want to delete this usaha?') }}') ? this.parentElement.submit() : ''">
+                                                                        <i class="material-icons">close</i>
+                                                                        <div class="ripple-container"></div>
+                                                                        Hapus
+                                                                    </button>
+                                                                </form>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                  </div>
-                            @else
-                                <div class="col-12 text-center">
-                                    <h3 class="title"><strong>Upsss...</strong> Sepertinya Album tahun Anda
-                                        Kosong, Silahkan Tambah Terlebih Dahulu</h3>
-                                </div>
-                                <div class="col-12 text-center">
-                                    <a href="{{ route('tahun.create') }}"
-                                        class="btn btn-lg btn-success">{{ __('Add tahun') }}</a>
-                                </div>
+                                @else
+                                    <div class="col-12 text-center">
+                                        <h3 class="title"><strong>Upsss...</strong> Sepertinya Album tahun Anda
+                                            Kosong, Silahkan Tambah Terlebih Dahulu</h3>
+                                    </div>
+                                    <div class="col-12 text-center">
+                                        <a href="{{ route('tahun.create') }}"
+                                            class="btn btn-lg btn-success">{{ __('Add tahun') }}</a>
+                                    </div>
                             @endif
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    @endsection
+    @section('js')
+        <script>
+            $(function() {
+                $('#datatable').DataTable({
+
+                });
+            });
+        </script>
     @endsection

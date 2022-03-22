@@ -6,6 +6,7 @@ use App\Longsor;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Ramsey\Uuid\Uuid;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class LongsorImport implements ToModel, WithHeadingRow {
 	/**
@@ -22,7 +23,7 @@ class LongsorImport implements ToModel, WithHeadingRow {
 		return new Longsor([
 			'alamat' => $row['alamat'],
             'kecamatan' => $row['kecamatan'],
-            'tgl' => $row['tgl'],
+            'tgl' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['tgl']),
             'kb_meninggal' => $row['kb_meninggal'],
             'kb_hilang' => $row['kb_hilang'],
             'kb_luka' => $row['kb_luka'],

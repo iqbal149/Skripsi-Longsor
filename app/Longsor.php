@@ -8,6 +8,8 @@ class Longsor extends Model
 {
     //
     protected $table = 'longsor';
+	// protected $table->timestamp('tgl');
+
 	protected $fillable = [
 		'uuid',
 		'alamat',
