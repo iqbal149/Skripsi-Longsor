@@ -23,12 +23,12 @@
             <p>{{ __('Table List') }}</p>
         </a>
       </li>--}}
-      <li class="nav-item{{ $activePage == 'usaha' ? ' active' : '' }}">
+      {{-- <li class="nav-item{{ $activePage == 'usaha' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('usaha.index') }}">
           <i class="material-icons">shop</i>
             <p>{{ __('UMKM') }}</p>
         </a>
-      </li>
+      </li> --}}
       {{-- <li class="nav-item{{ $activePage == 'longsor' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('longsor.index') }}">
           <i class="material-icons">shop</i>
@@ -37,8 +37,8 @@
       </li> --}}
       <li class="nav-item{{ $activePage == 'tahun' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('tahun.index') }}">
-          <i class="material-icons">shop</i>
-            <p>{{ __('TAHUN') }}</p>
+          <i class="fa fa-table"></i>
+            <p>{{ __('Data Longsor') }}</p>
         </a>
       </li>
       <li class="nav-item {{ ($activePage == 'profile' || $activePage == 'user-management') ? ' active' : '' }}">

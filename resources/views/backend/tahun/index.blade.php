@@ -6,8 +6,8 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-success">
-                            <h4 class="card-title ">{{ __('Tahun') }}</h4>
-                            <p class="card-category"> {{ __('kelola foto tahun disini') }}</p>
+                            <h4 class="card-title ">{{ __('Data Tahun') }}</h4>
+                            <p class="card-category"> {{ __('Data Longsor Berdasarkan Tahun') }}</p>
                         </div>
                         <div class="card-body">
                             @if ($tahuns->count())
@@ -20,7 +20,7 @@
                                     <div class="col-12">
 
                                         <div class="table-responsive">
-                                            <table class="table table-bordered" id="datatable">
+                                            <table class="table display" id="datatable">
                                                 <thead class="text-center">
                                                     <th>
                                                         {{ __('No.') }}
@@ -30,6 +30,9 @@
                                                     </th>
                                                     <th>
                                                         {{ __('Data') }}
+                                                    </th>
+                                                    <th>
+                                                        {{ __('Terahkir Diupdate') }}
                                                     </th>
                                                     <th>
                                                         {{ __('Aksi') }}
@@ -42,10 +45,10 @@
                                                                 {{ ++$key }}
                                                             </td>
                                                             <td>
-                                                                {{ $tahun->label }}
+                                                                <strong>{{ $tahun->label }}</strong>
                                                             </td>
                                                             <td class="text-center">
-                                                                <strong>{{ $tahun->hasLongsor->count() }}</strong>
+                                                                <strong>{{ $tahun->hasLongsor->count() }}</strong> Data
                                                                 <br>
                                                                 <a href="{{ route('longsor.index', $tahun->uuid) }}"
                                                                     class="btn btn-sm btn-success">
@@ -54,18 +57,19 @@
                                                                     {{ __('Kelola') }}
                                                                 </a>
                                                             </td>
+                                                            <td>{{ $tahun->updated_at }}</td>
                                                             <td class="td-actions text-center">
                                                                 <form action="{{ route('tahun.destroy', $tahun->id) }}"
                                                                     method="post">
                                                                     @csrf
                                                                     @method('delete')
-                                                                    <a rel="tooltip" class="btn btn-md btn-info"
+                                                                    {{-- <a rel="tooltip" class="btn btn-md btn-info"
                                                                         href="{{ route('tahun.show', $tahun->id) }}"
                                                                         data-original-title="" title="">
                                                                         <i class="material-icons">remove_red_eye</i>
                                                                         <div class="ripple-container"></div>
                                                                         Lihat
-                                                                    </a>
+                                                                    </a> --}}
                                                                     <a rel="tooltip" class="btn btn-md btn-success"
                                                                         href="{{ route('tahun.edit', $tahun->id) }}"
                                                                         data-original-title="" title="">
