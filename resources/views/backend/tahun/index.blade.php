@@ -6,8 +6,8 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-success">
-                            <h4 class="card-title ">{{ __('Data Tahun') }}</h4>
-                            <p class="card-category"> {{ __('Data Longsor Berdasarkan Tahun') }}</p>
+                            <h4 class="card-title ">{{ __('Data per Tahun') }}</h4>
+                            <p class="card-category"> {{ __('Menampilkan data longsor berdasarkan tahun') }}</p>
                         </div>
                         <div class="card-body">
                             @if ($tahuns->count())

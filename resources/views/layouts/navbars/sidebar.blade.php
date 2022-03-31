@@ -37,8 +37,14 @@
       </li> --}}
       <li class="nav-item{{ $activePage == 'tahun' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('tahun.index') }}">
-          <i class="fa fa-table"></i>
+          <i class="fa fa-server"></i>
             <p>{{ __('Data Longsor') }}</p>
+        </a>
+      </li>
+      <li class="nav-item{{ $activePage == 'perhitungan' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('perhitungan.index') }}">
+          <i class="fa fa-calculator"></i>
+            <p>{{ __('Perhitungan') }}</p>
         </a>
       </li>
       <li class="nav-item {{ ($activePage == 'profile' || $activePage == 'user-management') ? ' active' : '' }}">

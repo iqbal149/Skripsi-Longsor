@@ -128,6 +128,20 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'longsor.import',	
 		'uses' => 'LongsorController@importExcel',
 	]);
+
+	// Perhitungan CMeans
+	Route::get('perhitungan/cmeans', [
+		'as' => 'perhitungan.cmeans',
+		'uses' => 'PerhitunganController@cmeans',
+	]);
+	Route::get('perhitungan', [
+		'as' => 'perhitungan.index',
+		'uses' => 'PerhitunganController@index',
+	]);
+	Route::get('pengujian', [
+		'as' => 'pengujian',
+		'uses' => 'PerhitunganController@pengujian',
+	]);
 });
 
 Route::group(['namespace' => 'Frontend'], function () {
