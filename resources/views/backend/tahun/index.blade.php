@@ -14,7 +14,7 @@
                                 <div class="row">
                                     <div class="col-12 text-right">
                                         <a href="{{ route('tahun.create') }}"
-                                            class="btn btn-lg btn-success">{{ __('Add tahun') }}</a>
+                                            class="btn btn-md btn-success">{{ __('Tambah tahun') }}</a>
                                     </div>
                                     <!-- <div class="row text-center"> -->
                                     <div class="col-12">

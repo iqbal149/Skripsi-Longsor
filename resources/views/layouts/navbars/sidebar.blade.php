@@ -1,4 +1,4 @@
-<div class="sidebar" data-color="azure" data-background-color="black" data-image="{{ asset('material') }}/img/sidebar-1.jpg">
+<div class="sidebar" data-color="orange" data-background-color="black">
   <!--
       Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -6,7 +6,7 @@
   -->
   <div class="logo">
     <a href="#" class="simple-text logo-normal">
-      <img src="{{ asset('logo-umkm.png') }}" style="max-width: 200px;">
+      <img src="{{ asset('logo-umkm.png') }}" style="max-width: 230px;">
     </a>
   </div>
   <div class="sidebar-wrapper">

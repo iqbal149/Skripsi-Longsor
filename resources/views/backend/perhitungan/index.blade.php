@@ -6,9 +6,10 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-content">
+                            <div class="card-header card-header-warning">
+                                <h4 class="card-title text-dark">{{ __('Keterangan') }} </h4>
+                            </div>
                             <div class="card-body">
-                                <h6 class="mt-0">Keterangan</h6>
-                                <hr>
                                 <table>
                                     <tr>
                                         <td>Jumlah Cluster</td>
@@ -123,7 +124,8 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table  table-lg table-stripped table-bordered datatable" id="datatable" width="100%">
+                                <table class="table  table-lg table-stripped table-bordered datatable" id="datatable"
+                                    width="100%">
                                     <thead class="text-center">
                                         <th>{{ __('Kode') }}</th>
                                         <th>{{ __('Alamat') }}</th>
