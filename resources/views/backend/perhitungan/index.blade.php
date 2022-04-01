@@ -6,8 +6,8 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-content">
-                            <div class="card-header card-header-warning">
-                                <h4 class="card-title text-dark">{{ __('Keterangan') }} </h4>
+                            <div class="card-header bg-dark">
+                                <h4 class="card-title text-white">{{ __('Keterangan') }} </h4>
                             </div>
                             <div class="card-body">
                                 <table>
@@ -35,18 +35,18 @@
 
             <div class="row">
                 <div class="col-12 text-center">
-                    <a href="{{ route('perhitungan.cmeans') }}" class="btn btn-lg btn-info">
-                        <i class="fa fa-solid fa-angle-right"></i>
-                        {{ __('Hitung Ulang') }}</a>
+                    <a href="{{ route('perhitungan.cmeans') }}" class="btn btn-lg btn-danger">
+                        <i class="fa fa-cogs"></i>
+                        {{ __(' Hitung Ulang') }}</a>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-6">
                     <div class="card">
-                        <div class="card-header card-header-success">
-                            <h4 class="card-title ">{{ __('Hasil Perhitungan C-Means ') }} </h4>
-                            <p class="card-category"> {{ __('Proses perhitungan') }}</p>
+                        <div class="card-header bg-dark">
+                            <h4 class="card-title text-white">{{ __('Hasil Perhitungan C-Means ') }} </h4>
+                            {{-- <p class="card-category text-white"> {{ __('Proses perhitungan') }}</p> --}}
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -81,9 +81,9 @@
 
                 <div class="col-md-6">
                     <div class="card">
-                        <div class="card-header card-header-success">
-                            <h4 class="card-title ">{{ __('Fungsi Objektif dan Nilai Error') }} </h4>
-                            <p class="card-category"> {{ __('--') }}</p>
+                        <div class="card-header bg-dark">
+                            <h4 class="card-title text-white">{{ __('Fungsi Objektif dan Nilai Error') }} </h4>
+                            <p class="card-category"> {{ __('') }}</p>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -118,13 +118,13 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header card-header-success">
-                            <h4 class="card-title ">{{ __('Hasil Clustering Longsor') }} </h4>
-                            <p class="card-category"> {{ __('Proses perhitungan') }}</p>
+                        <div class="card-header bg-dark">
+                            <h4 class="card-title text-white">{{ __('Hasil Clustering Longsor') }} </h4>
+                            {{-- <p class="card-category"> {{ __('Proses perhitungan') }}</p> --}}
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table  table-lg table-stripped table-bordered datatable" id="datatable"
+                                <table class="table display datatable table-striped" id="datatable"
                                     width="100%">
                                     <thead class="text-center">
                                         <th>{{ __('Kode') }}</th>
@@ -158,7 +158,7 @@
                                             <tr>
                                                 <td>C{{ str_pad($loop->iteration, 4, '0', STR_PAD_LEFT) }}</td>
                                                 <td nowrap>{{ $longsor[$key]->alamat }}</td>
-                                                <td>{{ $longsor[$key]->kecamatan }}</td>
+                                                <td nowrap>{{ $longsor[$key]->kecamatan }}</td>
                                                 <td>{{ $longsor[$key]->tgl }}</td>
                                                 <td>{{ $longsor[$key]->kb_meninggal }}</td>
                                                 <td>{{ $longsor[$key]->kb_hilang }}</td>
@@ -176,7 +176,7 @@
                                                 <td>{{ $longsor[$key]->jalan }}</td>
                                                 <td>{{ $longsor[$key]->sawah }}</td>
                                                 <td>{{ $longsor[$key]->hutan }}</td>
-                                                <td>{{ $value }}</td>
+                                                <td><strong>{{ $value }}</strong></td>
 
                                             </tr>
                                         @endforeach
@@ -190,8 +190,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header card-header-success">
-                            <h4 class="card-title ">{{ __('Pengujian Silhouette Coefficient') }} </h4>
+                        <div class="card-header bg-dark">
+                            <h4 class="card-title text-white ">{{ __('Pengujian Silhouette Coefficient') }} </h4>
                             <p class="card-category"> {{ __('-') }}</p>
                         </div>
                         @if ($uji == null)
@@ -251,7 +251,7 @@
     <script>
         $(document).ready(function() {
             $('table.datatable').DataTable({
-                responsive: true,
+                // responsive: true,
 
                 "lengthMenu": [
                     [10, 25, 50, -1],

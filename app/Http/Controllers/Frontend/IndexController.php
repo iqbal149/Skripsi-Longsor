@@ -6,6 +6,7 @@ use App\Usaha;
 use Datatables;
 use Illuminate\Http\Request;
 use Response;
+use DB;
 
 class IndexController extends Controller {
 	/**
@@ -14,45 +15,50 @@ class IndexController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index(Request $request) {
-		$mikro = Usaha::where('kategori', 'mikro')->count();
-		$kecil = Usaha::where('kategori', 'kecil')->count();
-		$menengah = Usaha::where('kategori', 'menengah')->count();
-		// $chart = Charts::database($usahas, 'bar', 'highcharts')
-		// 	->title("test Charts")
-		// 	->elemenLabel("Total Usaha")
-		// 	->dimensions(1000, 500)
-		// 	->responsive(false);
-		$borderColors = [
-			"rgba(255, 99, 132, 1.0)",
-			"rgba(22,160,133, 1.0)",
-			"rgba(255, 205, 86, 1.0)",
-			"rgba(51,105,232, 1.0)",
-			"rgba(244,67,54, 1.0)",
-			"rgba(34,198,246, 1.0)",
-			"rgba(153, 102, 255, 1.0)",
-			"rgba(255, 159, 64, 1.0)",
-			"rgba(233,30,99, 1.0)",
-			"rgba(205,220,57, 1.0)",
-		];
-		$fillColors = [
-			"rgba(255, 99, 132, 0.7)",
-			"rgba(22,160,133, 0.7)",
-			"rgba(255, 205, 86, 0.7)",
-			"rgba(51,105,232, 0.7)",
-			"rgba(244,67,54, 0.7)",
-			"rgba(34,198,246, 0.7)",
-			"rgba(153, 102, 255, 0.7)",
-			"rgba(255, 159, 64, 0.7)",
-			"rgba(233,30,99, 0.7)",
-			"rgba(205,220,57, 0.7)",
+		$data['hasil'] = DB::table('hasil')->first();
+		// return $data;
+		// dd(json_decode($data['hasil']->hasil_cluster));
 
-		];
-		$chart = new UsahaChart;
-		$chart->labels(['Mikro', 'Kecil', 'Menengah']);
-		$chart->dataset('Data Jumlah UMKM', 'polarArea', [$mikro, $kecil, $menengah])
-			->color($borderColors)
-			->backgroundcolor($fillColors);
-		return view('frontend.index', ['UsahaChart' => $chart]);
+		// $cluster_1 = Usaha::where('kategori', 'mikro')->count();
+		// $cluster_2 = Usaha::where('kategori', 'kecil')->count();
+		// $cluster_3 = Usaha::where('kategori', 'menengah')->count();
+		// // $chart = Charts::database($usahas, 'bar', 'highcharts')
+		// // 	->title("test Charts")
+		// // 	->elemenLabel("Total Usaha")
+		// // 	->dimensions(1000, 500)
+		// // 	->responsive(false);
+		// $borderColors = [
+		// 	"rgba(255, 99, 132, 1.0)",
+		// 	"rgba(22,160,133, 1.0)",
+		// 	"rgba(255, 205, 86, 1.0)",
+		// 	"rgba(51,105,232, 1.0)",
+		// 	"rgba(244,67,54, 1.0)",
+		// 	"rgba(34,198,246, 1.0)",
+		// 	"rgba(153, 102, 255, 1.0)",
+		// 	"rgba(255, 159, 64, 1.0)",
+		// 	"rgba(233,30,99, 1.0)",
+		// 	"rgba(205,220,57, 1.0)",
+		// ];
+		// $fillColors = [
+		// 	"rgba(255, 99, 132, 0.7)",
+		// 	"rgba(22,160,133, 0.7)",
+		// 	"rgba(255, 205, 86, 0.7)",
+		// 	"rgba(51,105,232, 0.7)",
+		// 	"rgba(244,67,54, 0.7)",
+		// 	"rgba(34,198,246, 0.7)",
+		// 	"rgba(153, 102, 255, 0.7)",
+		// 	"rgba(255, 159, 64, 0.7)",
+		// 	"rgba(233,30,99, 0.7)",
+		// 	"rgba(205,220,57, 0.7)",
+
+		// ];
+		// $chart = new UsahaChart;
+		// $chart->labels(['Cluster 1', 'Cluster 2', 'CLuster 3']);
+		// $chart->dataset('Data Jumlah UMKM', 'polarArea', [$cluster_1, $cluster_2, $cluster_3])
+		// 	->color($borderColors)
+		// 	->backgroundcolor($fillColors);
+		// return view('frontend.index', ['UsahaChart' => $chart]);
+		return view('frontend.index', $data);
 	}
 	public function umkmList() {
 		$usahas = Usaha::latest()->get();

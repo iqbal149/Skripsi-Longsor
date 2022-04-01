@@ -1,88 +1,46 @@
-@extends('layouts.app', ['activePage' => 'longsor', 'titlePage' => __('longsor')])
+@extends('layouts.app', ['activePage' => 'longsor', 'titlePage' => __('data longsor')])
 @section('content')
     <div class="content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header card-header-success">
-                            <h4 class="card-title ">{{ __('Data longsor Tahun ') }} {{ $tahun->label }}</h4>
-                            <p class="card-category"> {{ __('Disini kamu dapat mengelola Data longsor') }}</p>
+                        <div class="card-header bg-dark">
+                            <h4 class="card-title text-white">{{ __('Data longsor Tahun ') }} {{ $tahun->label }}</h4>
+                            <p class="card-category text-white"> {{ __('Disini kamu dapat mengelola Data longsor') }}</p>
                         </div>
                         <div class="card-body">
                             @if ($longsors->count())
                                 <div class="row">
                                     <div class="col-12 text-right">
                                         <a href="{{ route('longsor.create', $tahun->uuid) }}"
-                                            class="btn btn-sm btn-primary">{{ __('Add longsor') }}</a>
+                                            class="btn btn-sm btn-success">{{ __('Tambah data') }}</a>
                                     </div>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered wo-warp" width="100" id="datatable">
+                                    <table class="table display wo-warp" width="100" id="datatable">
                                         <thead class="text-center">
-                                            <th>
-                                                {{ __('No.') }}
-                                            </th>
-                                            <th>
-                                                {{ __('Alamat') }}
-                                            </th>
-                                            <th>
-                                                {{ __('Kecamatan') }}
-                                            </th>
-                                            <th>
-                                                {{ __('Tanggal Kejadian') }}
-                                            </th>
-                                            <th>
-                                                {{ __('Korban Meninggal') }}
-                                            </th>
-                                            <th>
-                                                {{ __('Korban Hilang') }}
-                                            </th>
-                                            <th>
-                                                {{ __('Korban Mengungsi') }}
-                                            </th>
-                                            <th>
-                                                {{ __('Rumah Rusak Berat') }}
-                                            </th>
-                                            <th>
-                                                {{ __('Rumah Rusak Ringan') }}
-                                            </th>
-                                            <th>
-                                                {{ __('Rumah Terendam') }}
-                                            </th>
-                                            <th>
-                                                {{ __('Kantor') }}
-                                            </th>
-                                            <th>
-                                                {{ __('Sekolah') }}
-                                            </th>
-                                            <th>
-                                                {{ __('Tempat Ibadah') }}
-                                            </th>
-                                            <th>
-                                                {{ __('Sarana Kesehatan') }}
-                                            </th>
-                                            <th>
-                                                {{ __('Bangunan Lain') }}
-                                            </th>
-                                            <th>
-                                                {{ __('Jembatan') }}
-                                            </th>
-                                            <th>
-                                                {{ __('Jalan') }}
-                                            </th>
-                                            <th>
-                                                {{ __('Sawah') }}
-                                            </th>
-                                            <th>
-                                                {{ __('Hutan') }}
-                                            </th>
-                                            <th>
-                                                {{ __('Creation date') }}
-                                            </th>
-                                            <th class="text-center">
-                                                {{ __('Actions') }}
-                                            </th>
+                                            <th>{{ __('No.') }}</th>
+                                            <th>{{ __('Alamat') }}</th>
+                                            <th>{{ __('Kecamatan') }}</th>
+                                            <th>{{ __('Tanggal Kejadian') }}</th>
+                                            <th>{{ __('Korban Meninggal') }}</th>
+                                            <th>{{ __('Korban Hilang') }}</th>
+                                            <th>{{ __('Korban Mengungsi') }}</th>
+                                            <th>{{ __('Rumah Rusak Berat') }}</th>
+                                            <th>{{ __('Rumah Rusak Ringan') }}</th>
+                                            <th>{{ __('Rumah Terendam') }}</th>
+                                            <th>{{ __('Kantor') }}</th>
+                                            <th>{{ __('Sekolah') }}</th>
+                                            <th>{{ __('Tempat Ibadah') }}</th>
+                                            <th>{{ __('Sarana Kesehatan') }}</th>
+                                            <th>{{ __('Bangunan Lain') }}</th>
+                                            <th>{{ __('Jembatan') }}</th>
+                                            <th>{{ __('Jalan') }}</th>
+                                            <th>{{ __('Sawah') }}</th>
+                                            <th>{{ __('Hutan') }}</th>
+                                            <th>{{ __('Creation date') }}</th>
+                                            <th class="text-center">{{ __('Actions') }}</th>
                                         </thead>
                                         <tbody class="text-center">
                                             @foreach ($longsors as $key => $longsor)

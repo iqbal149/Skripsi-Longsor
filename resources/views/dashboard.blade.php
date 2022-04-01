@@ -6,12 +6,12 @@
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="card card-stats">
-                        <div class="card-header card-header-warning card-header-icon">
+                        <div class="card-header card-header-warning card-header-icon" style="margin: 0px 15px 0;">
                             <div class="card-icon">
                                 <i class="fa fa-calendar"></i>
                             </div>
                             <p class="card-category">Jumlah Data Tahun</p>
-                            <h3 class="card-title">5
+                            <h3 class="card-title"><strong> 5</strong>
                                 {{-- <small>Tahun Terahkir</small> --}}
                             </h3>
                         </div>
@@ -25,13 +25,13 @@
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="card card-stats">
-                        <div class="card-header card-header-success card-header-icon">
+                        <div class="card-header card-header-success card-header-icon" style="margin: 0px 15px 0;">
                             <div class="card-icon">
                                 <i class="fa fa-database"></i>
 
                             </div>
                             <p class="card-category">Jumlah Dataset</p>
-                            <h3 class="card-title">1123</h3>
+                            <h3 class="card-title"><strong> 1123</h3></strong>
                         </div>
                         <div class="card-footer">
                             <div class="stats">
@@ -42,13 +42,13 @@
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="card card-stats">
-                        <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-header card-header-danger card-header-icon" style="margin: 0px 15px 0;">
                             <div class="card-icon">
                             <i class="fa fa-tasks"></i>
 
                             </div>
                             <p class="card-category">Jumlah Cluster</p>
-                            <h3 class="card-title">3</h3>
+                            <h3 class="card-title"><strong> 3</h3></strong>
                         </div>
                         <div class="card-footer">
                             <div class="stats">
@@ -59,12 +59,12 @@
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="card card-stats">
-                        <div class="card-header card-header-info card-header-icon">
+                        <div class="card-header card-header-info card-header-icon" style="margin: 0px 15px 0;">
                             <div class="card-icon">
                                 <i class="fa fa-users"></i>
                             </div>
                             <p class="card-category">Pengguna</p>
-                            <h3 class="card-title">10</h3>
+                            <h3 class="card-title"><strong> 10</h3></strong>
                         </div>
                         <div class="card-footer">
                             <div class="stats">
@@ -81,7 +81,7 @@
                             <h3 class="card-title">Pengelompokan Data Bencana Tanah Longsor</h3>
                             <h2 class="card-title"><strong>Menggunakan Metode Fuzzy C-Means</strong></h2>
                             <p class="card-category">
-                                <span class="text-success">Studi Kasus Kota Samarinda
+                                <span class="text-success">Studi Kasus Provinsi Kalimantan Timur</span>
                             </p>
                         </div>
                     </div>

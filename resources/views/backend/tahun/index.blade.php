@@ -1,12 +1,12 @@
-@extends('layouts.app', ['activePage' => 'tahun', 'titlePage' => __('Kelola Tahun')])
+@extends('layouts.app', ['activePage' => 'tahun', 'titlePage' => __('Data Longsor')])
 @section('content')
     <div class="content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header card-header-success">
-                            <h4 class="card-title ">{{ __('Data per Tahun') }}</h4>
+                        <div class="card-header bg-dark">
+                            <h4 class="card-title text-white">{{ __('Data per Tahun') }}</h4>
                             <p class="card-category"> {{ __('Menampilkan data longsor berdasarkan tahun') }}</p>
                         </div>
                         <div class="card-body">
@@ -57,7 +57,7 @@
                                                                     {{ __('Kelola') }}
                                                                 </a>
                                                             </td>
-                                                            <td>{{ $tahun->updated_at }}</td>
+                                                            <td>{{ $tahun->updated_at->diffForhumans() }}</td>
                                                             <td class="td-actions text-center">
                                                                 <form action="{{ route('tahun.destroy', $tahun->id) }}"
                                                                     method="post">

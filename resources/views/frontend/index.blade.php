@@ -7,11 +7,11 @@
       <div class="row slider-text align-items-center justify-content-center">
         <div class="col-md-10 ftco-animate text-center">
           <h1 class="mb-4">I love
-          <strong class="typewrite" data-period="4000" data-type='[ "Samarinda.", "Kalimantan Timur.", "Indonesia."]'>
+          <strong class="typewrite" data-period="4000" data-type='[ "Tanah Longsor.", "Kalimantan Timur.", "Indonesia."]'>
           <span class="wrap"></span>
           </strong>
           </h1>
-          <p>“Bahan terpenting adalah dengan melakukan sesuatu. Banyak orang punya ide, tapi hanya sedikit orang yang memutuskan untuk melakukan sesuatu terhadap ide-ide tersebut. Bukan besok. Tidak minggu depan. Tapi hari ini. Pengusaha sejati adalah pelaku, bukan pemimpi.”</p>
+          <p>“Tanah longsor adalah perpindahan material pembentuk lereng berupa batuan, bahan rombakan, tanah, atau material campuran tersebut, bergerak ke bawah atau keluar lereng.”</p>
           <!-- <p><a href="https://vimeo.com/45830194" class="btn btn-primary btn-outline-white px-4 py-3 popup-vimeo"><span class="ion-ios-play mr-2"></span> Watch Video</a></p> -->
         </div>
       </div>
@@ -19,14 +19,14 @@
   </div>
 </section>
 <!-- END slider -->
-<section class="ftco-section-featured ftco-animate">
+{{-- <section class="ftco-section-featured ftco-animate">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
         <div class="carousel owl-carousel">
           @foreach(App\Slider::latest()->get() as $i => $slider)
           <div class="item">
-            <a href="portfolio.html">
+            <a href="#">
               <img src="{{ $slider->foto }}" class="img-fluid" alt="">
             </a>
           </div>
@@ -35,7 +35,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> --}}
 <section class="ftco-section ftco-degree-bg">
   <div class="container">
     <div class="row justify-content-center mb-5 pb-5">
@@ -83,7 +83,7 @@
           <h2 class="h1 font-weight-bold">Chart Data UMKM Sungai Kapih</h2>
           <!-- <p><a href="#" class="btn btn-primary btn-outline-white mt-3 py-3 px-4">View more details</a></p> -->
           <div id="app">
-            {!! $UsahaChart->container() !!}
+            {{-- {!! $UsahaChart->container() !!} --}}
           </div>
         </div>
       </div>
@@ -140,7 +140,7 @@
     <div class="col-md-6 col-lg-4 d-flex justify-content-center counter-wrap ftco-animate">
       <div class="block-18 text-center">
         <div class="text" style="padding: 20px 10px 20px 10px; border-radius: 10px; background-color: rgba(51, 117, 209, 0.85); min-width: 200px;">
-          <strong class="number" data-number="{{App\Usaha::where('kategori','mikro')->count()}}">0</strong>
+          {{-- <strong class="number" data-number="{{App\Usaha::where('kategori','mikro')->count()}}">0</strong> --}}
           <span>Kategori Mikro</span>
         </div>
       </div>
@@ -148,7 +148,7 @@
     <div class="col-md-6 col-lg-4 d-flex justify-content-center counter-wrap ftco-animate">
       <div class="block-18 text-center">
         <div class="text" style="padding: 20px 10px 20px 10px; border-radius: 10px; background-color: rgba(51, 117, 209, 0.85); min-width: 200px;">
-          <strong class="number" data-number="{{App\Usaha::where('kategori','kecil')->count()}}">0</strong>
+          {{-- <strong class="number" data-number="{{App\Usaha::where('kategori','kecil')->count()}}">0</strong> --}}
           <span>Kategori Kecil</span>
         </div>
       </div>
@@ -156,7 +156,7 @@
     <div class="col-md-6 col-lg-4 d-flex justify-content-center counter-wrap ftco-animate">
       <div class="block-18 text-center">
         <div class="text" style="padding: 20px 10px 20px 10px; border-radius: 10px; background-color: rgba(51, 117, 209, 0.85); min-width: 200px;">
-          <strong class="number" data-number="{{App\Usaha::where('kategori','menengah')->count()}}">0</strong>
+          {{-- <strong class="number" data-number="{{App\Usaha::where('kategori','menengah')->count()}}">0</strong> --}}
           <span>Kategori Menengah</span>
         </div>
       </div>
@@ -167,7 +167,7 @@
 @endsection
 @section('js')
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script>
+{{-- <script>
 $(document).ready( function () {
 $.ajaxSetup({
 headers: {
@@ -212,9 +212,9 @@ selector: 'td:first-child'
 $('#btnFiterSubmitSearch').click(function(){
 $('#laravel_datatable').DataTable().draw(true);
 });
-</script>
+</script> --}}
 {{-- ChartScript --}}
-@if($UsahaChart)
+{{-- @if($UsahaChart)
 {!! $UsahaChart->script() !!}
-@endif
+@endif --}}
 @endsection
