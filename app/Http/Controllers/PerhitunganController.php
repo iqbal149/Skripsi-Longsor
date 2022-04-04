@@ -10,7 +10,7 @@ use Phpml\Math\Distance\Euclidean;
 class PerhitunganController extends Controller
 {
     public function index(){
-        $data['hasil'] = DB::table('hasil')
+        $data['hasil'] = DB::table('hasil')->orderBy('id','DESC')
             ->first();
         $data['uji'] = DB::table('uji')
             ->first();
@@ -23,7 +23,7 @@ class PerhitunganController extends Controller
     {
         $jumlahCluster = 3;
         $maksIter = 100;
-        $errorTerkecil = 0.00001;
+        $errorTerkecil = 0.000001;
 
         $dataset = DB::table('longsor')->get();
         // dd($dataset);
