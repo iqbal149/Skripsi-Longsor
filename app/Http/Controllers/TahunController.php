@@ -14,10 +14,10 @@ class TahunController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-		$tahuns = tahun::latest()->paginate(5);
+		$tahuns = tahun::latest()->get();
 		// $tahuns = tahun::first();
         // dd($tahuns->hasLongsor->count());
-		return view('backend.tahun.index', compact('tahuns'))->with('i', ($request->input('page', 1) - 1) * 5);
+		return view('backend.tahun.index', compact('tahuns'));
 	}
     /**
      * Show the form for creating a new resource.
