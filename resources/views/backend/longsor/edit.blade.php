@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <form method="post" action="{{ route('longsor.update', [$longsor->uuid, $tahun->uuid]) }}"
+                    <form method="post" action="{{ route('tahun.longsor.update', [$tahun->uuid,$longsor->uuid]) }}"
                         autocomplete="off" class="form-horizontal" enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
@@ -16,7 +16,7 @@
                             <div class="card-body ">
                                 <div class="row">
                                     <div class="col-md-12 text-right">
-                                        <a href="{{ route('longsor.index', $tahun->uuid) }}"
+                                        <a href="{{ route('tahun.longsor.index', $tahun->uuid) }}"
                                             class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
                                     </div>
                                 </div>
@@ -31,7 +31,8 @@
                                                     class="form-control{{ $errors->has('alamat') ? ' is-invalid' : '' }}"
                                                     name="alamat" id="input-alamat" type="text"
                                                     placeholder="{{ __('Masukan Alamat Kejadian') }}"
-                                                    value="{{ old('alamat', $longsor->alamat) }}" required="true" aria-required="true" />
+                                                    value="{{ old('alamat', $longsor->alamat) }}" required="true"
+                                                    aria-required="true" />
                                                 @if ($errors->has('alamat'))
                                                     <span id="alamat-error" class="error text-danger"
                                                         for="input-alamat">{{ $errors->first('alamat') }}</span>
@@ -124,7 +125,8 @@
                                                         class="form-control{{ $errors->has('tgl') ? ' is-invalid' : '' }}"
                                                         name="tgl" id="input-tgl" type="date"
                                                         placeholder="{{ __('Masukan Tanggal') }}"
-                                                        value="{{ old('tgl', $longsor->tgl) }}" required="true" aria-required="true" />
+                                                        value="{{ old('tgl', $longsor->tgl) }}" required="true"
+                                                        aria-required="true" />
                                                     @if ($errors->has('tgl'))
                                                         <span id="tgl-error" class="error text-danger"
                                                             for="input-tgl">{{ $errors->first('tgl') }}</span>
@@ -140,8 +142,8 @@
                                                         class="form-control{{ $errors->has('kb_meninggal') ? ' is-invalid' : '' }}"
                                                         name="kb_meninggal" id="input-kb_meninggal" type="text"
                                                         placeholder="{{ __('Masukan Jumlah Korban Meninggal') }}"
-                                                        value="{{ old('kb_meninggal', $longsor->kb_meninggal) }}" required="true"
-                                                        aria-required="true" />
+                                                        value="{{ old('kb_meninggal', $longsor->kb_meninggal) }}"
+                                                        required="true" aria-required="true" />
                                                     @if ($errors->has('kb_meninggal'))
                                                         <span id="kb_meninggal-error" class="error text-danger"
                                                             for="input-kb_meninggal">{{ $errors->first('kb_meninggal') }}</span>
@@ -158,8 +160,8 @@
                                                         class="form-control{{ $errors->has('kb_hilang') ? ' is-invalid' : '' }}"
                                                         name="kb_hilang" id="input-kb_hilang" type="text"
                                                         placeholder="{{ __('Masukan Jumlah Korban Hilang') }}"
-                                                        value="{{ old('kb_hilang',$longsor->kb_hilang) }}" required="true"
-                                                        aria-required="true" />
+                                                        value="{{ old('kb_hilang', $longsor->kb_hilang) }}"
+                                                        required="true" aria-required="true" />
                                                     @if ($errors->has('kb_hilang'))
                                                         <span id="kb_hilang-error" class="error text-danger"
                                                             for="input-kb_hilang">{{ $errors->first('kb_hilang') }}</span>
@@ -174,7 +176,7 @@
                                                         class="form-control{{ $errors->has('kb_luka') ? ' is-invalid' : '' }}"
                                                         name="kb_luka" id="input-kb_luka" type="text"
                                                         placeholder="{{ __('Masukan Jumlah Korban Luka') }}"
-                                                        value="{{ old('kb_luka',$longsor->kb_luka) }}" required="true"
+                                                        value="{{ old('kb_luka', $longsor->kb_luka) }}" required="true"
                                                         aria-required="true" />
                                                     @if ($errors->has('kb_luka'))
                                                         <span id="kb_luka-error" class="error text-danger"
@@ -192,8 +194,8 @@
                                                         class="form-control{{ $errors->has('kb_mengungsi') ? ' is-invalid' : '' }}"
                                                         name="kb_mengungsi" id="input-kb_mengungsi" type="text"
                                                         placeholder="{{ __('Masukan Jumlah Korban Mengungsi') }}"
-                                                        value="{{ old('kb_mengungsi',$longsor->kb_mengungsi) }}" required="true"
-                                                        aria-required="true" />
+                                                        value="{{ old('kb_mengungsi', $longsor->kb_mengungsi) }}"
+                                                        required="true" aria-required="true" />
                                                     @if ($errors->has('kb_mengungsi'))
                                                         <span id="kb_mengungsi-error" class="error text-danger"
                                                             for="input-kb_mengungsi">{{ $errors->first('kb_mengungsi') }}</span>
@@ -209,8 +211,8 @@
                                                         class="form-control{{ $errors->has('kr_rumah_rb') ? ' is-invalid' : '' }}"
                                                         name="kr_rumah_rb" id="input-kr_rumah_rb" type="text"
                                                         placeholder="{{ __('Masukan Jumlah Rumah Rusak Berat') }}"
-                                                        value="{{ old('kr_rumah_rb',$longsor->kr_rumah_rb) }}" required="true"
-                                                        aria-required="true" />
+                                                        value="{{ old('kr_rumah_rb', $longsor->kr_rumah_rb) }}"
+                                                        required="true" aria-required="true" />
                                                     @if ($errors->has('kr_rumah_rb'))
                                                         <span id="kr_rumah_rb-error" class="error text-danger"
                                                             for="input-kr_rumah_rb">{{ $errors->first('kr_rumah_rb') }}</span>
@@ -227,8 +229,8 @@
                                                         class="form-control{{ $errors->has('kr_rumah_rr') ? ' is-invalid' : '' }}"
                                                         name="kr_rumah_rr" id="input-kr_rumah_rr" type="text"
                                                         placeholder="{{ __('Masukan Jumlah Rumah Rusak Ringan') }}"
-                                                        value="{{ old('kr_rumah_rr',$longsor->kr_rumah_rr) }}" required="true"
-                                                        aria-required="true" />
+                                                        value="{{ old('kr_rumah_rr', $longsor->kr_rumah_rr) }}"
+                                                        required="true" aria-required="true" />
                                                     @if ($errors->has('kr_rumah_rr'))
                                                         <span id="kr_rumah_rr-error" class="error text-danger"
                                                             for="input-kr_rumah_rr">{{ $errors->first('kr_rumah_rr') }}</span>
@@ -243,8 +245,8 @@
                                                         class="form-control{{ $errors->has('kr_rumah_terendam') ? ' is-invalid' : '' }}"
                                                         name="kr_rumah_terendam" id="input-kr_rumah_terendam" type="text"
                                                         placeholder="{{ __('Masukan Jumlah Rumah Terendam') }}"
-                                                        value="{{ old('kr_rumah_terendam',$longsor->kr_rumah_terendam) }}" required="true"
-                                                        aria-required="true" />
+                                                        value="{{ old('kr_rumah_terendam', $longsor->kr_rumah_terendam) }}"
+                                                        required="true" aria-required="true" />
                                                     @if ($errors->has('kr_rumah_terendam'))
                                                         <span id="kr_rumah_terendam-error" class="error text-danger"
                                                             for="input-kr_rumah_terendam">{{ $errors->first('kr_rumah_terendam') }}</span>
@@ -261,7 +263,7 @@
                                                         class="form-control{{ $errors->has('kantor') ? ' is-invalid' : '' }}"
                                                         name="kantor" id="input-kantor" type="text"
                                                         placeholder="{{ __('Masukan Jumlah Kantor') }}"
-                                                        value="{{ old('kantor',$longsor->kantor) }}" required="true"
+                                                        value="{{ old('kantor', $longsor->kantor) }}" required="true"
                                                         aria-required="true" />
                                                     @if ($errors->has('kantor'))
                                                         <span id="kantor-error" class="error text-danger"
@@ -277,7 +279,7 @@
                                                         class="form-control{{ $errors->has('sekolah') ? ' is-invalid' : '' }}"
                                                         name="sekolah" id="input-sekolah" type="text"
                                                         placeholder="{{ __('Masukan Jumlah Sekolah') }}"
-                                                        value="{{ old('sekolah',$longsor->sekolah) }}" required="true"
+                                                        value="{{ old('sekolah', $longsor->sekolah) }}" required="true"
                                                         aria-required="true" />
                                                     @if ($errors->has('sekolah'))
                                                         <span id="sekolah-error" class="error text-danger"
@@ -295,7 +297,7 @@
                                                         class="form-control{{ $errors->has('t_ibadah') ? ' is-invalid' : '' }}"
                                                         name="t_ibadah" id="input-t_ibadah" type="text"
                                                         placeholder="{{ __('Masukan Jumlah Tempat Ibadah') }}"
-                                                        value="{{ old('t_ibadah',$longsor->t_ibadah) }}" required="true"
+                                                        value="{{ old('t_ibadah', $longsor->t_ibadah) }}" required="true"
                                                         aria-required="true" />
                                                     @if ($errors->has('t_ibadah'))
                                                         <span id="t_ibadah-error" class="error text-danger"
@@ -311,8 +313,8 @@
                                                         class="form-control{{ $errors->has('sarana_kesehatan') ? ' is-invalid' : '' }}"
                                                         name="sarana_kesehatan" id="input-sarana_kesehatan" type="text"
                                                         placeholder="{{ __('Masukan Jumlah Sarana Kesehatan') }}"
-                                                        value="{{ old('sarana_kesehatan',$longsor->sarana_kesehatan) }}" required="true"
-                                                        aria-required="true" />
+                                                        value="{{ old('sarana_kesehatan', $longsor->sarana_kesehatan) }}"
+                                                        required="true" aria-required="true" />
                                                     @if ($errors->has('sarana_kesehatan'))
                                                         <span id="sarana_kesehatan-error" class="error text-danger"
                                                             for="input-sarana_kesehatan">{{ $errors->first('sarana_kesehatan') }}</span>
@@ -329,8 +331,8 @@
                                                         class="form-control{{ $errors->has('bangunan_lain') ? ' is-invalid' : '' }}"
                                                         name="bangunan_lain" id="input-bangunan_lain" type="text"
                                                         placeholder="{{ __('Masukan Jumlah Bangunan Lain') }}"
-                                                        value="{{ old('bangunan_lain',$longsor->bangunan_lain) }}" required="true"
-                                                        aria-required="true" />
+                                                        value="{{ old('bangunan_lain', $longsor->bangunan_lain) }}"
+                                                        required="true" aria-required="true" />
                                                     @if ($errors->has('bangunan_lain'))
                                                         <span id="bangunan_lain-error" class="error text-danger"
                                                             for="input-bangunan_lain">{{ $errors->first('bangunan_lain') }}</span>
@@ -346,7 +348,7 @@
                                                         class="form-control{{ $errors->has('jembatan') ? ' is-invalid' : '' }}"
                                                         name="jembatan" id="input-jembatan" type="text"
                                                         placeholder="{{ __('Masukan Jumlah Jembatan') }}"
-                                                        value="{{ old('jembatan',$longsor->jembatan) }}" required="true"
+                                                        value="{{ old('jembatan', $longsor->jembatan) }}" required="true"
                                                         aria-required="true" />
                                                     @if ($errors->has('jembatan'))
                                                         <span id="jembatan-error" class="error text-danger"
@@ -363,7 +365,7 @@
                                                         class="form-control{{ $errors->has('jalan') ? ' is-invalid' : '' }}"
                                                         name="jalan" id="input-jalan" type="text"
                                                         placeholder="{{ __('Masukan Jumlah Jalan') }}"
-                                                        value="{{ old('jalan',$longsor->jalan) }}" required="true"
+                                                        value="{{ old('jalan', $longsor->jalan) }}" required="true"
                                                         aria-required="true" />
                                                     @if ($errors->has('jalan'))
                                                         <span id="jalan-error" class="error text-danger"
@@ -379,7 +381,7 @@
                                                         class="form-control{{ $errors->has('sawah') ? ' is-invalid' : '' }}"
                                                         name="sawah" id="input-sawah" type="text"
                                                         placeholder="{{ __('Masukan Jumlah Sawah') }}"
-                                                        value="{{ old('sawah',$longsor->sawah) }}" required="true"
+                                                        value="{{ old('sawah', $longsor->sawah) }}" required="true"
                                                         aria-required="true" />
                                                     @if ($errors->has('sawah'))
                                                         <span id="sawah-error" class="error text-danger"
@@ -397,7 +399,7 @@
                                                         class="form-control{{ $errors->has('hutan') ? ' is-invalid' : '' }}"
                                                         name="hutan" id="input-hutan" type="text"
                                                         placeholder="{{ __('Masukan Jumlah Hutan') }}"
-                                                        value="{{ old('hutan',$longsor->hutan) }}" required="true"
+                                                        value="{{ old('hutan', $longsor->hutan) }}" required="true"
                                                         aria-required="true" />
                                                     @if ($errors->has('hutan'))
                                                         <span id="hutan-error" class="error text-danger"
@@ -408,37 +410,46 @@
                                         </div>
                                         <div class="card-footer ml-auto mr-auto">
                                             <button type="submit"
-                                                class="btn btn-primary">{{ __('Update Usaha') }}</button>
+                                                class="btn btn-primary">{{ __('Update Data') }}</button>
                                         </div>
-                                    @endsection
-                                    @section('js')
-                                        <script>
-                                            var datalat = {!! json_encode($longsor->lat) !!};
-                                            var datalng = {!! json_encode($longsor->lng) !!};
-                                            if (datalat == null) {
-                                                var datalat = -0.4574384;
-                                                var datalng = 117.1528078;
-                                            }
-                                            var map = new google.maps.Map(document.getElementById('map-container-google-11'), {
-                                                center: {
-                                                    lat: datalat,
-                                                    lng: datalng
-                                                },
-                                                zoom: 15
-                                            });
-                                            var marker = new google.maps.Marker({
-                                                position: {
-                                                    lat: datalat,
-                                                    lng: datalng
-                                                },
-                                                map: map,
-                                                draggable: true
-                                            });
-                                            google.maps.event.addListener(marker, 'position_changed', function() {
-                                                var lat = marker.getPosition().lat();
-                                                var lng = marker.getPosition().lng();
-                                                $('#latitude').val(lat);
-                                                $('#longitude').val(lng);
-                                            });
-                                        </script>
-                                    @endsection
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+@section('js')
+    <script>
+        var datalat = {!! json_encode($longsor->lat) !!};
+        var datalng = {!! json_encode($longsor->lng) !!};
+        if (datalat == null) {
+            var datalat = -0.4574384;
+            var datalng = 117.1528078;
+        }
+        var map = new google.maps.Map(document.getElementById('map-container-google-11'), {
+            center: {
+                lat: datalat,
+                lng: datalng
+            },
+            zoom: 15
+        });
+        var marker = new google.maps.Marker({
+            position: {
+                lat: datalat,
+                lng: datalng
+            },
+            map: map,
+            draggable: true
+        });
+        google.maps.event.addListener(marker, 'position_changed', function() {
+            var lat = marker.getPosition().lat();
+            var lng = marker.getPosition().lng();
+            $('#latitude').val(lat);
+            $('#longitude').val(lng);
+        });
+    </script>
+@endsection

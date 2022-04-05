@@ -5,18 +5,18 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card ">
-                    <div class="card-header card-header-info ">
-                        <h4 class="card-title">{{ __('Tambah longsor') }}</h4>
+                    <div class="card-header bg-dark ">
+                        <h4 class="card-title text-white">{{ __('Tambah longsor') }}</h4>
                         <p class="card-category"></p>
                         <ul class="nav nav-pills nav-pills-primary" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active btn btn-success" data-toggle="tab" href="#link1"
+                                <a class="nav-link active btn btn-light" data-toggle="tab" href="#link1"
                                     role="tablist" aria-expanded="true">
                                     Form Manual
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link btn btn-success" data-toggle="tab" href="#link2" role="tablist"
+                                <a class="nav-link btn btn-light" data-toggle="tab" href="#link2" role="tablist"
                                     aria-expanded="false">
                                     Import Data
                                 </a>
@@ -26,13 +26,13 @@
                     <div class="card-body ">
                         <div class="row">
                             <div class="col-md-12 text-right">
-                                <a href="{{ route('longsor.index', $uuid    ) }}"
+                                <a href="{{ route('tahun.longsor.index', $uuid) }}"
                                     class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
                             </div>
                         </div>
                         <div class="tab-content tab-space">
                             <div class="tab-pane active" id="link1" aria-expanded="true">
-                                <form method="post" action="{{ route('longsor.store', $uuid) }}" autocomplete="off"
+                                <form method="post" action="{{ route('tahun.longsor.store', $uuid) }}" autocomplete="off"
                                     class="form-horizontal" enctype="multipart/form-data">
                                     @csrf
                                     @method('post')
@@ -493,7 +493,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form method="post" action="{{ route('longsor.import', $uuid) }}" autocomplete="off"
+                                <form method="post" action="{{ route('tahun.longsor.import', $uuid) }}" autocomplete="off"
                                     class="form-horizontal" enctype="multipart/form-data" files="true">
                                     @csrf
                                     @method('post')

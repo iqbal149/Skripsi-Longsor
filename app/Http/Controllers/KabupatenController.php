@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Kabupaten;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
+
 
 class KabupatenController extends Controller
 {
@@ -15,7 +17,8 @@ class KabupatenController extends Controller
      */
     public function index()
     {
-        //
+        $data = Kabupaten::latest()->get();
+		return view('backend.kabupaten.index', compact('data'));
     }
 
     /**
@@ -25,7 +28,8 @@ class KabupatenController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.kabupaten.create');
+        
     }
 
     /**
@@ -36,7 +40,17 @@ class KabupatenController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+			'label' => 'required',
+			'kode' => 'required',
+			  
+		]);
+        $data = new kabupaten();
+		$data->uuid = Uuid::uuid4()->getHex();
+		$data->label = $request->label;
+		$data->kode = $request->kode;
+		$data->save();
+		return redirect()->route('kabupaten.index')->with('success', 'data successfully added');
     }
 
     /**
@@ -47,7 +61,7 @@ class KabupatenController extends Controller
      */
     public function show(Kabupaten $kabupaten)
     {
-        //
+        
     }
 
     /**
@@ -56,9 +70,11 @@ class KabupatenController extends Controller
      * @param  \App\Kabupaten  $kabupaten
      * @return \Illuminate\Http\Response
      */
-    public function edit(Kabupaten $kabupaten)
+    public function edit($uuid)
     {
-        //
+        $data = Kabupaten::whereUuid($uuid)->firstOrFail();
+        // dd($data);
+        return view('backend.kabupaten.edit', compact('data'));
     }
 
     /**
@@ -68,9 +84,15 @@ class KabupatenController extends Controller
      * @param  \App\Kabupaten  $kabupaten
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Kabupaten $kabupaten)
+    public function update(Request $request, $uuid)
     {
-        //
+        $data = Kabupaten::whereUuid($uuid)->firstOrFail();
+        // dd($data);
+
+        $data->label = $request->label;
+        $data->kode = $request->kode;
+        $data->save();
+        return redirect()->route('kabupaten.index')->with('success', 'data successfully updated');
     }
 
     /**
@@ -79,8 +101,11 @@ class KabupatenController extends Controller
      * @param  \App\Kabupaten  $kabupaten
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kabupaten $kabupaten)
+    public function destroy($uuid)
     {
-        //
+        $data = Kabupaten::whereUuid($uuid)->firstOrFail();
+
+        $data->delete();
+		return redirect()->route('kabupaten.index')->with('success', 'tahun deleted successfully');
     }
 }

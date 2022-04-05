@@ -10,22 +10,30 @@ use Phpml\Math\Distance\Euclidean;
 class PerhitunganController extends Controller
 {
     public function index(){
+        $data['cekhasil'] = DB::table('hasil')->orderBy('id','DESC')
+            ->get();
         $data['hasil'] = DB::table('hasil')->orderBy('id','DESC')
             ->first();
         $data['uji'] = DB::table('uji')
             ->first();
-        $data['longsor'] = DB::table('longsor')
+        $data['rekap'] = DB::table('rekap')
             ->get();
             // dd($data);
         return view('backend.perhitungan.index', $data);
     }
-    public function cmeans()
+    public function cmeans(Request $request)
     {
-        $jumlahCluster = 3;
-        $maksIter = 100;
-        $errorTerkecil = 0.000001;
+        $cek_hasil = DB::table('hasil')->count();
+        if($cek_hasil != 0){
+            DB::table('hasil')->truncate();
+            DB::table('uji')->truncate();
+        }
 
-        $dataset = DB::table('longsor')->get();
+        $jumlahCluster = $request->jumlah_cluster;
+        $maksIter = $request->iterasi;
+        $errorTerkecil = $request->error_terkecil;
+
+        $dataset = DB::table('rekap')->get();
         // dd($dataset);
         $matriksPartAwal = $this->matriksPartisiAwal($jumlahCluster, count($dataset));
         // dd($matriksPartAwal);
@@ -52,41 +60,15 @@ class PerhitunganController extends Controller
                         $mu2 = pow(str_replace(',', '.', $matriksPartAwal[$key][$i]), 2);
                         $c[$i][$key] = [
                             '𝝁i^2' => $mu2,
-                            '𝝁i^2*x1' => $mu2 * $value->kb_meninggal,
-                            '𝝁i^2*x2' => $mu2 * $value->kb_hilang,
-                            '𝝁i^2*x3' => $mu2 * $value->kb_luka,
-                            '𝝁i^2*x4' => $mu2 * $value->kb_mengungsi,
-                            '𝝁i^2*x5' => $mu2 * $value->kr_rumah_rb,
-                            '𝝁i^2*x6' => $mu2 * $value->kr_rumah_rr,
-                            '𝝁i^2*x7' => $mu2 * $value->kr_rumah_terendam,
-                            '𝝁i^2*x8' => $mu2 * $value->kantor,
-                            '𝝁i^2*x9' => $mu2 * $value->sekolah,
-                            '𝝁i^2*x10' => $mu2 * $value->t_ibadah,
-                            '𝝁i^2*x11' => $mu2 * $value->sarana_kesehatan,
-                            '𝝁i^2*x12' => $mu2 * $value->bangunan_lain,
-                            '𝝁i^2*x13' => $mu2 * $value->jembatan,
-                            '𝝁i^2*x14' => $mu2 * $value->jalan,
-                            '𝝁i^2*x15' => $mu2 * $value->sawah,
-                            '𝝁i^2*x16' => $mu2 * $value->hutan,
+                            '𝝁i^2*x1' => $mu2 * $value->kejadian,
+                            '𝝁i^2*x2' => $mu2 * $value->korban,
+                            '𝝁i^2*x3' => $mu2 * $value->kerusakan,
                         ];
                         $sumC[$i] = [
                             '∑𝝁i^2' => 0,
                             '∑𝝁i^2*x1' => 0,
                             '∑𝝁i^2*x2' => 0,
                             '∑𝝁i^2*x3' => 0,
-                            '∑𝝁i^2*x4' => 0,
-                            '∑𝝁i^2*x5' => 0,
-                            '∑𝝁i^2*x6' => 0,
-                            '∑𝝁i^2*x7' => 0,
-                            '∑𝝁i^2*x8' => 0,
-                            '∑𝝁i^2*x9' => 0,
-                            '∑𝝁i^2*x10' => 0,
-                            '∑𝝁i^2*x11' => 0,
-                            '∑𝝁i^2*x12' => 0,
-                            '∑𝝁i^2*x13' => 0,
-                            '∑𝝁i^2*x14' => 0,
-                            '∑𝝁i^2*x15' => 0,
-                            '∑𝝁i^2*x16' => 0,
                         ];
                     }
                 }
@@ -97,37 +79,11 @@ class PerhitunganController extends Controller
                         $sumC[$i]['∑𝝁i^2*x1'] += $c[$i][$key]['𝝁i^2*x1'];
                         $sumC[$i]['∑𝝁i^2*x2'] += $c[$i][$key]['𝝁i^2*x2'];
                         $sumC[$i]['∑𝝁i^2*x3'] += $c[$i][$key]['𝝁i^2*x3'];
-                        $sumC[$i]['∑𝝁i^2*x4'] += $c[$i][$key]['𝝁i^2*x4'];
-                        $sumC[$i]['∑𝝁i^2*x5'] += $c[$i][$key]['𝝁i^2*x5'];
-                        $sumC[$i]['∑𝝁i^2*x6'] += $c[$i][$key]['𝝁i^2*x6'];
-                        $sumC[$i]['∑𝝁i^2*x7'] += $c[$i][$key]['𝝁i^2*x7'];
-                        $sumC[$i]['∑𝝁i^2*x8'] += $c[$i][$key]['𝝁i^2*x8'];
-                        $sumC[$i]['∑𝝁i^2*x9'] += $c[$i][$key]['𝝁i^2*x9'];
-                        $sumC[$i]['∑𝝁i^2*x10'] += $c[$i][$key]['𝝁i^2*x10'];
-                        $sumC[$i]['∑𝝁i^2*x11'] += $c[$i][$key]['𝝁i^2*x11'];
-                        $sumC[$i]['∑𝝁i^2*x12'] += $c[$i][$key]['𝝁i^2*x12'];
-                        $sumC[$i]['∑𝝁i^2*x13'] += $c[$i][$key]['𝝁i^2*x13'];
-                        $sumC[$i]['∑𝝁i^2*x14'] += $c[$i][$key]['𝝁i^2*x14'];
-                        $sumC[$i]['∑𝝁i^2*x15'] += $c[$i][$key]['𝝁i^2*x15'];
-                        $sumC[$i]['∑𝝁i^2*x16'] += $c[$i][$key]['𝝁i^2*x16'];
                     }
 
                     $pusatC[$i]['∑𝝁i^2*x1'] = $sumC[$i]['∑𝝁i^2*x1'] / $sumC[$i]['∑𝝁i^2'];
                     $pusatC[$i]['∑𝝁i^2*x2'] = $sumC[$i]['∑𝝁i^2*x2'] / $sumC[$i]['∑𝝁i^2'];
                     $pusatC[$i]['∑𝝁i^2*x3'] = $sumC[$i]['∑𝝁i^2*x3'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x4'] = $sumC[$i]['∑𝝁i^2*x4'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x5'] = $sumC[$i]['∑𝝁i^2*x5'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x6'] = $sumC[$i]['∑𝝁i^2*x6'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x7'] = $sumC[$i]['∑𝝁i^2*x7'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x8'] = $sumC[$i]['∑𝝁i^2*x8'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x9'] = $sumC[$i]['∑𝝁i^2*x9'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x10'] = $sumC[$i]['∑𝝁i^2*x10'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x11'] = $sumC[$i]['∑𝝁i^2*x11'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x12'] = $sumC[$i]['∑𝝁i^2*x12'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x13'] = $sumC[$i]['∑𝝁i^2*x13'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x14'] = $sumC[$i]['∑𝝁i^2*x14'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x15'] = $sumC[$i]['∑𝝁i^2*x15'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x16'] = $sumC[$i]['∑𝝁i^2*x16'] / $sumC[$i]['∑𝝁i^2'];
 
                 }
 
@@ -139,43 +95,17 @@ class PerhitunganController extends Controller
                 for ($i = 0; $i < $jumlahCluster; $i++) {
                     foreach ($dataset as $key => $value) {
                         $L[$i][$key] = (
-                            (pow($value->kb_meninggal - $pusatC[$i]['∑𝝁i^2*x1'], 2)) +
-                            (pow($value->kb_hilang - $pusatC[$i]['∑𝝁i^2*x2'], 2)) +
-                            (pow($value->kb_luka - $pusatC[$i]['∑𝝁i^2*x3'], 2)) +
-                            (pow($value->kb_mengungsi - $pusatC[$i]['∑𝝁i^2*x4'], 2)) +
-                            (pow($value->kr_rumah_rb - $pusatC[$i]['∑𝝁i^2*x5'], 2)) +
-                            (pow($value->kr_rumah_rr - $pusatC[$i]['∑𝝁i^2*x6'], 2)) +
-                            (pow($value->kr_rumah_terendam - $pusatC[$i]['∑𝝁i^2*x7'], 2)) +
-                            (pow($value->kantor - $pusatC[$i]['∑𝝁i^2*x8'], 2)) +
-                            (pow($value->sekolah - $pusatC[$i]['∑𝝁i^2*x9'], 2)) +
-                            (pow($value->t_ibadah - $pusatC[$i]['∑𝝁i^2*x10'], 2)) +
-                            (pow($value->sarana_kesehatan - $pusatC[$i]['∑𝝁i^2*x11'], 2)) +
-                            (pow($value->bangunan_lain - $pusatC[$i]['∑𝝁i^2*x12'], 2)) +
-                            (pow($value->jembatan - $pusatC[$i]['∑𝝁i^2*x13'], 2)) +
-                            (pow($value->jalan - $pusatC[$i]['∑𝝁i^2*x14'], 2)) +
-                            (pow($value->sawah - $pusatC[$i]['∑𝝁i^2*x15'], 2)) +
-                            (pow($value->hutan - $pusatC[$i]['∑𝝁i^2*x16'], 2)) *
+                            (pow($value->kejadian - $pusatC[$i]['∑𝝁i^2*x1'], 2)) +
+                            (pow($value->korban - $pusatC[$i]['∑𝝁i^2*x2'], 2)) +
+                            (pow($value->kerusakan - $pusatC[$i]['∑𝝁i^2*x3'], 2)) *
                             $c[$i][$key]['𝝁i^2']
                             );
 
                         $sumL[$key] += $L[$i][$key];
                         $ML[$i][$key] = (pow((
-                            (pow($value->kb_meninggal - $pusatC[$i]['∑𝝁i^2*x1'], 2)) +
-                            (pow($value->kb_hilang - $pusatC[$i]['∑𝝁i^2*x2'], 2)) +
-                            (pow($value->kb_luka - $pusatC[$i]['∑𝝁i^2*x3'], 2)) +
-                            (pow($value->kb_mengungsi - $pusatC[$i]['∑𝝁i^2*x4'], 2)) +
-                            (pow($value->kr_rumah_rb - $pusatC[$i]['∑𝝁i^2*x5'], 2)) +
-                            (pow($value->kr_rumah_rr - $pusatC[$i]['∑𝝁i^2*x6'], 2)) +
-                            (pow($value->kr_rumah_terendam - $pusatC[$i]['∑𝝁i^2*x7'], 2)) +
-                            (pow($value->kantor - $pusatC[$i]['∑𝝁i^2*x8'], 2)) +
-                            (pow($value->sekolah - $pusatC[$i]['∑𝝁i^2*x9'], 2)) +
-                            (pow($value->t_ibadah - $pusatC[$i]['∑𝝁i^2*x10'], 2)) +
-                            (pow($value->sarana_kesehatan - $pusatC[$i]['∑𝝁i^2*x11'], 2)) +
-                            (pow($value->bangunan_lain - $pusatC[$i]['∑𝝁i^2*x12'], 2)) +
-                            (pow($value->jembatan - $pusatC[$i]['∑𝝁i^2*x13'], 2)) +
-                            (pow($value->jalan - $pusatC[$i]['∑𝝁i^2*x14'], 2)) +
-                            (pow($value->sawah - $pusatC[$i]['∑𝝁i^2*x15'], 2)) +
-                            (pow($value->hutan - $pusatC[$i]['∑𝝁i^2*x16'], 2))), -1)
+                            (pow($value->kejadian - $pusatC[$i]['∑𝝁i^2*x1'], 2)) +
+                            (pow($value->korban - $pusatC[$i]['∑𝝁i^2*x2'], 2)) +
+                            (pow($value->kerusakan - $pusatC[$i]['∑𝝁i^2*x3'], 2))), -1)
                             );
 
                         $sumML[$key] += $ML[$i][$key];
@@ -210,41 +140,15 @@ class PerhitunganController extends Controller
                         $mu2 = pow($matriksPartU[$i][$key], 2);
                         $c[$i][$key] = [
                             '𝝁i^2' => $mu2,
-                            '𝝁i^2*x1' => $mu2 * $value->kb_meninggal,
-                            '𝝁i^2*x2' => $mu2 * $value->kb_hilang,
-                            '𝝁i^2*x3' => $mu2 * $value->kb_luka,
-                            '𝝁i^2*x4' => $mu2 * $value->kb_mengungsi,
-                            '𝝁i^2*x5' => $mu2 * $value->kr_rumah_rb,
-                            '𝝁i^2*x6' => $mu2 * $value->kr_rumah_rr,
-                            '𝝁i^2*x7' => $mu2 * $value->kr_rumah_terendam,
-                            '𝝁i^2*x8' => $mu2 * $value->kantor,
-                            '𝝁i^2*x9' => $mu2 * $value->sekolah,
-                            '𝝁i^2*x10' => $mu2 * $value->t_ibadah,
-                            '𝝁i^2*x11' => $mu2 * $value->sarana_kesehatan,
-                            '𝝁i^2*x12' => $mu2 * $value->bangunan_lain,
-                            '𝝁i^2*x13' => $mu2 * $value->jembatan,
-                            '𝝁i^2*x14' => $mu2 * $value->jalan,
-                            '𝝁i^2*x15' => $mu2 * $value->sawah,
-                            '𝝁i^2*x16' => $mu2 * $value->hutan,
+                            '𝝁i^2*x1' => $mu2 * $value->kejadian,
+                            '𝝁i^2*x2' => $mu2 * $value->korban,
+                            '𝝁i^2*x3' => $mu2 * $value->kerusakan,
                         ];
                         $sumC[$i] = [
                             '∑𝝁i^2' => 0,
                             '∑𝝁i^2*x1' => 0,
                             '∑𝝁i^2*x2' => 0,
                             '∑𝝁i^2*x3' => 0,
-                            '∑𝝁i^2*x4' => 0,
-                            '∑𝝁i^2*x5' => 0,
-                            '∑𝝁i^2*x6' => 0,
-                            '∑𝝁i^2*x7' => 0,
-                            '∑𝝁i^2*x8' => 0,
-                            '∑𝝁i^2*x9' => 0,
-                            '∑𝝁i^2*x10' => 0,
-                            '∑𝝁i^2*x11' => 0,
-                            '∑𝝁i^2*x12' => 0,
-                            '∑𝝁i^2*x13' => 0,
-                            '∑𝝁i^2*x14' => 0,
-                            '∑𝝁i^2*x15' => 0,
-                            '∑𝝁i^2*x16' => 0,
                         ];
                     }
                 }
@@ -255,37 +159,11 @@ class PerhitunganController extends Controller
                         $sumC[$i]['∑𝝁i^2*x1'] += $c[$i][$key]['𝝁i^2*x1'];
                         $sumC[$i]['∑𝝁i^2*x2'] += $c[$i][$key]['𝝁i^2*x2'];
                         $sumC[$i]['∑𝝁i^2*x3'] += $c[$i][$key]['𝝁i^2*x3'];
-                        $sumC[$i]['∑𝝁i^2*x4'] += $c[$i][$key]['𝝁i^2*x4'];
-                        $sumC[$i]['∑𝝁i^2*x5'] += $c[$i][$key]['𝝁i^2*x5'];
-                        $sumC[$i]['∑𝝁i^2*x6'] += $c[$i][$key]['𝝁i^2*x6'];
-                        $sumC[$i]['∑𝝁i^2*x7'] += $c[$i][$key]['𝝁i^2*x7'];
-                        $sumC[$i]['∑𝝁i^2*x8'] += $c[$i][$key]['𝝁i^2*x8'];
-                        $sumC[$i]['∑𝝁i^2*x9'] += $c[$i][$key]['𝝁i^2*x9'];
-                        $sumC[$i]['∑𝝁i^2*x10'] += $c[$i][$key]['𝝁i^2*x10'];
-                        $sumC[$i]['∑𝝁i^2*x11'] += $c[$i][$key]['𝝁i^2*x11'];
-                        $sumC[$i]['∑𝝁i^2*x12'] += $c[$i][$key]['𝝁i^2*x12'];
-                        $sumC[$i]['∑𝝁i^2*x13'] += $c[$i][$key]['𝝁i^2*x13'];
-                        $sumC[$i]['∑𝝁i^2*x14'] += $c[$i][$key]['𝝁i^2*x14'];
-                        $sumC[$i]['∑𝝁i^2*x15'] += $c[$i][$key]['𝝁i^2*x15'];
-                        $sumC[$i]['∑𝝁i^2*x16'] += $c[$i][$key]['𝝁i^2*x16'];
                     }
 
                     $pusatC[$i]['∑𝝁i^2*x1'] = $sumC[$i]['∑𝝁i^2*x1'] / $sumC[$i]['∑𝝁i^2'];
                     $pusatC[$i]['∑𝝁i^2*x2'] = $sumC[$i]['∑𝝁i^2*x2'] / $sumC[$i]['∑𝝁i^2'];
                     $pusatC[$i]['∑𝝁i^2*x3'] = $sumC[$i]['∑𝝁i^2*x3'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x4'] = $sumC[$i]['∑𝝁i^2*x4'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x5'] = $sumC[$i]['∑𝝁i^2*x5'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x6'] = $sumC[$i]['∑𝝁i^2*x6'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x7'] = $sumC[$i]['∑𝝁i^2*x7'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x8'] = $sumC[$i]['∑𝝁i^2*x8'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x9'] = $sumC[$i]['∑𝝁i^2*x9'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x10'] = $sumC[$i]['∑𝝁i^2*x10'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x11'] = $sumC[$i]['∑𝝁i^2*x11'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x12'] = $sumC[$i]['∑𝝁i^2*x12'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x13'] = $sumC[$i]['∑𝝁i^2*x13'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x14'] = $sumC[$i]['∑𝝁i^2*x14'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x15'] = $sumC[$i]['∑𝝁i^2*x15'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x16'] = $sumC[$i]['∑𝝁i^2*x16'] / $sumC[$i]['∑𝝁i^2'];
 
                 }
 
@@ -297,43 +175,17 @@ class PerhitunganController extends Controller
                 for ($i = 0; $i < $jumlahCluster; $i++) {
                     foreach ($dataset as $key => $value) {
                         $L[$i][$key] = (
-                            (pow($value->kb_meninggal - $pusatC[$i]['∑𝝁i^2*x1'], 2)) +
-                            (pow($value->kb_hilang - $pusatC[$i]['∑𝝁i^2*x2'], 2)) +
-                            (pow($value->kb_luka - $pusatC[$i]['∑𝝁i^2*x3'], 2)) +
-                            (pow($value->kb_mengungsi - $pusatC[$i]['∑𝝁i^2*x4'], 2)) +
-                            (pow($value->kr_rumah_rb - $pusatC[$i]['∑𝝁i^2*x5'], 2)) +
-                            (pow($value->kr_rumah_rr - $pusatC[$i]['∑𝝁i^2*x6'], 2)) +
-                            (pow($value->kr_rumah_terendam - $pusatC[$i]['∑𝝁i^2*x7'], 2)) +
-                            (pow($value->kantor - $pusatC[$i]['∑𝝁i^2*x8'], 2)) +
-                            (pow($value->sekolah - $pusatC[$i]['∑𝝁i^2*x9'], 2)) +
-                            (pow($value->t_ibadah - $pusatC[$i]['∑𝝁i^2*x10'], 2)) +
-                            (pow($value->sarana_kesehatan - $pusatC[$i]['∑𝝁i^2*x11'], 2)) +
-                            (pow($value->bangunan_lain - $pusatC[$i]['∑𝝁i^2*x12'], 2)) +
-                            (pow($value->jembatan - $pusatC[$i]['∑𝝁i^2*x13'], 2)) +
-                            (pow($value->jalan - $pusatC[$i]['∑𝝁i^2*x14'], 2)) +
-                            (pow($value->sawah - $pusatC[$i]['∑𝝁i^2*x15'], 2)) +
-                            (pow($value->hutan - $pusatC[$i]['∑𝝁i^2*x16'], 2)) *
+                            (pow($value->kejadian - $pusatC[$i]['∑𝝁i^2*x1'], 2)) +
+                            (pow($value->korban - $pusatC[$i]['∑𝝁i^2*x2'], 2)) +
+                            (pow($value->kerusakan - $pusatC[$i]['∑𝝁i^2*x3'], 2)) *
                             $c[$i][$key]['𝝁i^2']
                             );
 
                         $sumL[$key] += $L[$i][$key];
                         $ML[$i][$key] = (pow((
-                            (pow($value->kb_meninggal - $pusatC[$i]['∑𝝁i^2*x1'], 2)) +
-                            (pow($value->kb_hilang - $pusatC[$i]['∑𝝁i^2*x2'], 2)) +
-                            (pow($value->kb_luka - $pusatC[$i]['∑𝝁i^2*x3'], 2)) +
-                            (pow($value->kb_mengungsi - $pusatC[$i]['∑𝝁i^2*x4'], 2)) +
-                            (pow($value->kr_rumah_rb - $pusatC[$i]['∑𝝁i^2*x5'], 2)) +
-                            (pow($value->kr_rumah_rr - $pusatC[$i]['∑𝝁i^2*x6'], 2)) +
-                            (pow($value->kr_rumah_terendam - $pusatC[$i]['∑𝝁i^2*x7'], 2)) +
-                            (pow($value->kantor - $pusatC[$i]['∑𝝁i^2*x8'], 2)) +
-                            (pow($value->sekolah - $pusatC[$i]['∑𝝁i^2*x9'], 2)) +
-                            (pow($value->t_ibadah - $pusatC[$i]['∑𝝁i^2*x10'], 2)) +
-                            (pow($value->sarana_kesehatan - $pusatC[$i]['∑𝝁i^2*x11'], 2)) +
-                            (pow($value->bangunan_lain - $pusatC[$i]['∑𝝁i^2*x12'], 2)) +
-                            (pow($value->jembatan - $pusatC[$i]['∑𝝁i^2*x13'], 2)) +
-                            (pow($value->jalan - $pusatC[$i]['∑𝝁i^2*x14'], 2)) +
-                            (pow($value->sawah - $pusatC[$i]['∑𝝁i^2*x15'], 2)) +
-                            (pow($value->hutan - $pusatC[$i]['∑𝝁i^2*x16'], 2))), -1)
+                            (pow($value->kejadian - $pusatC[$i]['∑𝝁i^2*x1'], 2)) +
+                            (pow($value->korban - $pusatC[$i]['∑𝝁i^2*x2'], 2)) +
+                            (pow($value->kerusakan - $pusatC[$i]['∑𝝁i^2*x3'], 2))), -1)
                             );
 
                         $sumML[$key] += $ML[$i][$key];
@@ -389,7 +241,7 @@ class PerhitunganController extends Controller
             //    dd($simpan);
         DB::table('hasil')->insert($simpan);
 
-        return redirect('perhitungan');
+        return redirect('perhitungan')->with('success', 'Data berhasil dihitung ulang');
 
     }
 

@@ -24,9 +24,9 @@ class LongsorController extends Controller
     {
 		// dd($uuid);
         $tahun = Tahun::whereUuid($uuid)->firstOrFail();
-        $longsors = Longsor::where('id_tahun', $tahun->uuid)->paginate(25);
+        $longsors = Longsor::where('id_tahun', $tahun->uuid)->get();
 		// dd(count($longsors));
-		return view('backend.longsor.index', compact('longsors','tahun'))->with('i', ($request->input('page', 1) - 1) * 5);
+		return view('backend.longsor.index', compact('longsors','tahun'));
     }
 
     /**
@@ -120,12 +120,12 @@ class LongsorController extends Controller
      * @param  \App\Longsor  $longsor
      * @return \Illuminate\Http\Response
      */
-    public function edit($uuid, $idtahun)
+    public function edit($idtahun, $idlongsor)
     {
         //
 		$tahun = Tahun::whereUuid($idtahun)->firstOrFail();
 		// dd($tahun);
-        $longsor = Longsor::whereUuid($uuid)->firstOrFail();
+        $longsor = Longsor::whereUuid($idlongsor)->firstOrFail();
 		// dd($longsor);
 		return view('backend.longsor.edit', compact('longsor','tahun'));
     }
@@ -137,31 +137,32 @@ class LongsorController extends Controller
      * @param  \App\Longsor  $longsor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Longsor $longsor)
+    public function update(Request $request, $idtahun, $idlongsor)
     {
-        //
-        $longsor = Longsor::find($uuid);
-        $longsor->alamat = $request->alamat;
-		$longsor->kecamatan = $request->kecamatan;
-		$longsor->tgl = $request->tgl;
-		$longsor->kb_meninggal = $request->kb_meninggal;
-		$longsor->kb_hilang = $request->kb_hilang;
-		$longsor->kb_luka = $request->kb_luka;
-		$longsor->kb_mengungsi = $request->kb_mengungsi;
-		$longsor->kr_rumah_rb = $request->kr_rumah_rb;
-		$longsor->kr_rumah_rr = $request->kr_rumah_rr;
-		$longsor->kr_rumah_terendam = $request->kr_rumah_terendam;
-		$longsor->kantor = $request->kantor;
-		$longsor->sekolah = $request->sekolah;
-		$longsor->t_ibadah = $request->t_ibadah;
-        $longsor->sarana_kesehatan = $request->sarana_kesehatan;
-        $longsor->bangunan_lain = $request->bangunan_lain;
-        $longsor->jembatan = $request->jembatan;
-        $longsor->jalan = $request->jalan;
-        $longsor->sawah = $request->sawah;
-        $longsor->hutan = $request->hutan;
-        $longsor->save();
-		return redirect()->route('longsor.index')->with('success', 'data successfully updated');
+        // dd($request);
+        $data = Longsor::whereUuid($idlongsor)->firstOrFail();
+		// dd($data);
+        $data->alamat = $request->alamat;
+		$data->kecamatan = $request->kecamatan;
+		$data->tgl = $request->tgl;
+		$data->kb_meninggal = $request->kb_meninggal;
+		$data->kb_hilang = $request->kb_hilang;
+		$data->kb_luka = $request->kb_luka;
+		$data->kb_mengungsi = $request->kb_mengungsi;
+		$data->kr_rumah_rb = $request->kr_rumah_rb;
+		$data->kr_rumah_rr = $request->kr_rumah_rr;
+		$data->kr_rumah_terendam = $request->kr_rumah_terendam;
+		$data->kantor = $request->kantor;
+		$data->sekolah = $request->sekolah;
+		$data->t_ibadah = $request->t_ibadah;
+        $data->sarana_kesehatan = $request->sarana_kesehatan;
+        $data->bangunan_lain = $request->bangunan_lain;
+        $data->jembatan = $request->jembatan;
+        $data->jalan = $request->jalan;
+        $data->sawah = $request->sawah;
+        $data->hutan = $request->hutan;
+        $data->save();
+		return redirect()->route('tahun.longsor.index', $idtahun)->with('success', 'data successfully updated');
     }
 
     /**
@@ -170,14 +171,14 @@ class LongsorController extends Controller
      * @param  \App\Longsor  $longsor
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, $uuid)
+    public function destroy($idtahun, $idlongsor)
     {
         try {
-			$longsor = Longsor::whereUuid($id);
+			$longsor = Longsor::whereUuid($idlongsor);
 			$longsor->delete();
 		} catch (FileNotFoundException $e) {
 		}
-		return redirect()->route('longsor.index', compact('uuid'))->with('success', 'Longsor deleted successfully');
+		return redirect()->route('tahun.longsor.index', $idtahun)->with('success', 'Data deleted successfully');
     }
 
 
@@ -274,6 +275,6 @@ class LongsorController extends Controller
 		// set feedback
 
 		// Tampilkan index buku
-		return redirect()->route('longsor.index', $tahun)->with('success', 'Berhasil mengimport data Usaha');
+		return redirect()->route('tahun.longsor.index', $tahun)->with('success', 'Berhasil mengimport data Usaha');
 	}
 }

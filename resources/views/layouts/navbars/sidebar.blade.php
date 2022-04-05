@@ -41,6 +41,18 @@
             <p>{{ __('Data Longsor') }}</p>
         </a>
       </li>
+      <li class="nav-item{{ $activePage == 'kabupaten' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('kabupaten.index') }}">
+          <i class="fa fa-server"></i>
+            <p>{{ __('Data Kabupaten') }}</p>
+        </a>
+      </li>
+      <li class="nav-item{{ $activePage == 'rekap' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('rekap.index') }}">
+          <i class="fa fa-server"></i>
+            <p>{{ __('Data Rekap Kejadian') }}</p>
+        </a>
+      </li>
       <li class="nav-item{{ $activePage == 'perhitungan' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('perhitungan.index') }}">
           <i class="fa fa-calculator"></i>

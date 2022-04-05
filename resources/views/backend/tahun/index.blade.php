@@ -22,39 +22,28 @@
                                         <div class="table-responsive">
                                             <table class="table display" id="datatable">
                                                 <thead class="text-center">
-                                                    <th>
-                                                        {{ __('No.') }}
-                                                    </th>
-                                                    <th>
-                                                        {{ __('Tahun') }}
-                                                    </th>
-                                                    <th>
-                                                        {{ __('Data') }}
-                                                    </th>
-                                                    <th>
-                                                        {{ __('Terahkir Diupdate') }}
-                                                    </th>
-                                                    <th>
-                                                        {{ __('Aksi') }}
-                                                    </th>
+                                                    <th>{{ __('No.') }}</th>
+                                                    <th>{{ __('Tahun') }}</th>
+                                                    <th>{{ __('Data') }}</th>
+                                                    <th>{{ __('Kelola') }}</th>
+                                                    <th>{{ __('Terahkir Diupdate') }}</th>
+                                                    <th>{{ __('Aksi') }}</th>
                                                 </thead>
                                                 <tbody class="text-center">
                                                     @foreach ($tahuns as $key => $tahun)
                                                         <tr>
-                                                            <td>
-                                                                {{ ++$key }}
-                                                            </td>
+                                                            <td>{{ ++$key }}</td>
+                                                            
                                                             <td>
                                                                 <strong>{{ $tahun->label }}</strong>
                                                             </td>
                                                             <td class="text-center">
-                                                                <strong>{{ $tahun->hasLongsor->count() }}</strong> Data
-                                                                <br>
-                                                                <a href="{{ route('longsor.index', $tahun->uuid) }}"
+                                                                {{ $tahun->hasLongsor->count() }}
+                                                                
+                                                            </td>
+                                                            <td><a href="{{ route('tahun.longsor.index', $tahun->uuid) }}"
                                                                     class="btn btn-sm btn-success">
-                                                                    <!-- <i class="material-icons">settings_applications</i> -->
-                                                                    <div class="ripple-container"></div>
-                                                                    {{ __('Kelola') }}
+                                                                    <i class="fa-solid fa-gears"></i>
                                                                 </a>
                                                             </td>
                                                             <td>{{ $tahun->updated_at->diffForhumans() }}</td>
@@ -89,6 +78,21 @@
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
+                                                {{-- <tfoot class="text-center">
+                                                    <th></th>
+                                                    <th>Total Data</th>
+                                                    <th>{{ $tahuns->tahun->hasLongsor->count() }}</th>
+                                                </tfoot> --}}
+                                                <tfoot align="center">
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>TOTAL</th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </tfoot>
                                             </table>
                                         </div>
                                     </div>
@@ -110,9 +114,50 @@
     @endsection
     @section('js')
         <script>
+            // jQuery.fn.dataTable.Api.register('sum()', function() {
+            //     return this.flatten().reduce(function(a, b) {
+            //         var x = parseFloat(a) || 0;
+            //         var y = parseFloat($(b).attr('data')) || 0;
+            //         return x + y
+            //     }, 0);
+            // });
+
             $(function() {
                 $('#datatable').DataTable({
+                    "footerCallback": function(row, data, start, end, display) {
+                        var api = this.api();
 
+                        // Remove the formatting to get integer data for summation
+                        var intVal = function(i) {
+                            return typeof i === 'string' ?
+                                i.replace(/[\$,]/g, '') * 1 :
+                                typeof i === 'number' ?
+                                i : 0;
+                        };
+
+                        // Total over all pages
+                        total = api
+                            .column(2)
+                            .data()
+                            .reduce(function(a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0);
+
+                        // Total over this page
+                        pageTotal = api
+                            .column(2, {
+                                page: 'current'
+                            })
+                            .data()
+                            .reduce(function(a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0);
+
+                        // Update footer
+                        $(api.column(2).footer()).html(
+                            pageTotal + ' Data'
+                        );
+                    }
                 });
             });
         </script>

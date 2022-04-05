@@ -13,7 +13,7 @@
                             @if ($longsors->count())
                                 <div class="row">
                                     <div class="col-12 text-right">
-                                        <a href="{{ route('longsor.create', $tahun->uuid) }}"
+                                        <a href="{{ route('tahun.longsor.create', $tahun->uuid) }}"
                                             class="btn btn-sm btn-success">{{ __('Tambah data') }}</a>
                                     </div>
                                 </div>
@@ -103,27 +103,27 @@
                                                         {{ $longsor->hutan }}
                                                     </td>
                                                     <td style="min-width: 100px;">
-                                                        {{ $longsor->created_at->format('d-m-Y') }}
+                                                        {{ $longsor->updated_at->diffForhumans() }}
                                                     </td>
 
 
                                                     <td nowrap class="text-center">
                                                         <a rel="tooltip" class="btn btn-sm btn-info"
-                                                            href="{{ route('longsor.show', [$longsor->uuid, $tahun->uuid]) }}"
+                                                            href="{{ route('tahun.longsor.show', [$tahun->uuid, $longsor->uuid]) }}"
                                                             data-original-title="" title="">
                                                             <i class="material-icons">remove_red_eye</i>
                                                             <div class="ripple-container"></div>
 
                                                         </a>
                                                         <a rel="tooltip" class="btn btn-sm btn-success"
-                                                            href="{{ route('longsor.edit', [$longsor->uuid, $tahun->uuid]) }}"
+                                                            href="{{ route('tahun.longsor.edit', [$tahun->uuid, $longsor->uuid]) }}"
                                                             data-original-title="" title="">
                                                             <i class="material-icons">edit</i>
                                                             <div class="ripple-container"></div>
                                                         </a>
 
                                                         <form
-                                                            action="{{ route('longsor.destroy', [$longsor->uuid, $tahun->uuid]) }}"
+                                                            action="{{ route('tahun.longsor.destroy', [$tahun->uuid, $longsor->uuid]) }}"
                                                             method="post">
                                                             @csrf
                                                             @method('delete')
@@ -146,7 +146,7 @@
                                         Silahkan Tambah Terlebih Dahulu</h3>
                                 </div>
                                 <div class="col-12 text-center">
-                                    <a href="{{ route('longsor.create', $tahun->uuid) }}"
+                                    <a href="{{ route('tahun.longsor.create', $tahun->uuid) }}"
                                         class="btn btn-lg btn-success">{{ __('Tambah longsor') }}</a>
                                 </div>
                             @endif
