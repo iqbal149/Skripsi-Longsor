@@ -53,6 +53,12 @@
             <p>{{ __('Data Rekap Kejadian') }}</p>
         </a>
       </li>
+      <li class="nav-item{{ $activePage == 'matriks' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('matriks.index') }}">
+          <i class="fa-brands fa-dropbox"></i>
+            <p>{{ __('Data Matriks') }}</p>
+        </a>
+      </li>
       <li class="nav-item{{ $activePage == 'perhitungan' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('perhitungan.index') }}">
           <i class="fa fa-calculator"></i>
