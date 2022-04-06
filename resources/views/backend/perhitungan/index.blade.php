@@ -172,7 +172,6 @@
                         <div class="card">
                             <div class="card-header bg-dark">
                                 <h4 class="card-title text-white ">{{ __('Pengujian Silhouette Coefficient') }} </h4>
-                                <p class="card-category"> {{ __('-') }}</p>
                             </div>
                             @if ($uji == null)
                                 <div class="row">
