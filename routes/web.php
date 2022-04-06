@@ -39,7 +39,12 @@ Route::group(['middleware' => 'auth'], function () {
 		'tahun' => 'TahunController',
 		'kabupaten' => 'KabupatenController',
 		'rekap' => 'RekapController',
+		'matriks' => 'MatriksController',
 
+	]);
+	Route::get('deleteall',[
+		'as' => 'matriks.deleteall',
+		'uses' => 'MatriksController@deleteall'
 	]);
 	Route::resource('tahun', 'TahunController');
 	Route::resource('tahun.longsor', 'LongsorController');
@@ -89,6 +94,16 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('tahun/{tahun}/longsor/import', [
 		'as' => 'tahun.longsor.import',	
 		'uses' => 'LongsorController@importExcel',
+	]);
+	
+	// Import Export Matriks
+	Route::get('template/matriks', [
+		'as' => 'template.matriks',
+		'uses' => 'MatriksController@generateExcelTemplate',
+	]);
+	Route::post('matriks/import', [
+		'as' => 'matriks.import',	
+		'uses' => 'MatriksController@importExcel',
 	]);
 
 	// Perhitungan CMeans
