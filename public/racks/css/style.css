@@ -9789,10 +9789,10 @@ h5,
     /*background: transparent !important;*/
     /* background: #348ac7 !important; */
     background: #663333 !important;
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
-    z-index: 3;
+    z-index: 9999;
     /*top: 20px;*/
 }
 
@@ -10510,7 +10510,7 @@ h5,
     background-position: center center;
     position: relative;
     padding: 5em 0 15em 0;
-    background: #78d5ef;
+    background: #da7216;
 }
 
 .ftco-section-parallax .parallax-img.parallax-img-2 {
@@ -10866,7 +10866,7 @@ textarea.form-control {
 
 .ftco-footer {
     font-size: 16px;
-    background: #29bae4;
+    background: #414141;
     padding: 2em 0 1em 0;
 }
 

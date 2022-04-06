@@ -62,11 +62,11 @@
     <!-- END nav -->
     @yield('content')
 
-    <footer class="ftco-footer ftco-bg-dark ftco-section">
+    <footer class="ftco-footer ftco-section">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <div class="copyright text-center">
+                    <div class="copyright text-center text-white">
                         Copyright &copy;
                         <script>
                             document.write(new Date().getFullYear());
@@ -96,11 +96,14 @@
     <script src="{{ asset('racks') }}/js/bootstrap-datepicker.js"></script>
     <script src="{{ asset('racks') }}/js/jquery.timepicker.min.js"></script>
     <script src="{{ asset('racks') }}/js/main.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js">
+    </script>
     {{-- <script src="{{ asset('stickytable') }}/js/jquery.stickyheader.js"></script> --}}
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://kit.fontawesome.com/f63af47055.js" crossorigin="anonymous"></script>
+
     @yield('js')
 
 </body>

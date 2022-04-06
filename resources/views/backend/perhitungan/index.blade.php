@@ -149,6 +149,7 @@
                                             @php
                                                 $hasilCluster = json_decode($hasil->hasil_cluster);
                                             @endphp
+
                                             @foreach ($hasilCluster as $key => $value)
                                                 <tr>
                                                     <td>C{{ str_pad($loop->iteration, 4, '0', STR_PAD_LEFT) }}</td>

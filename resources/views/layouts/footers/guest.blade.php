@@ -1,4 +1,4 @@
-<footer class="footer" style="background-color: rgba(214,237,23,0.75);">
+<footer class="footer" style="background-color: #663333;">
     <div class="container">
         <div class="copyright">
             <div class="copyright text-center">

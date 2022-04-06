@@ -2,7 +2,8 @@
 namespace App\Http\Controllers\Frontend;
 use App\Charts\UsahaChart;
 use App\Http\Controllers\Controller;
-use App\Usaha;
+use App\Longsor;
+use App\Rekap;
 use Datatables;
 use Illuminate\Http\Request;
 use Response;
@@ -15,7 +16,19 @@ class IndexController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index(Request $request) {
-		$data['hasil'] = DB::table('hasil')->first();
+		
+		$data['cekhasil'] = DB::table('hasil')->orderBy('id', 'DESC')
+			->get();
+		$data['hasil'] = DB::table('hasil')->orderBy('id', 'DESC')
+			->first();
+		$cluster = DB::table('hasil')->select('hasil_cluster')->orderBy('id', 'DESC')
+			->first();
+			
+		$data['uji'] = DB::table('uji')
+			->first();
+
+		$data['rekap'] = DB::table('rekap')
+			->orderBy('kecamatan','asc')->get();
 		// return $data;
 		// dd(json_decode($data['hasil']->hasil_cluster));
 
@@ -95,9 +108,10 @@ class IndexController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show($id) {
-		$usaha = Usaha::find($id);
-		return view('frontend.detail', compact('usaha'));
+	public function show($key) {
+		$data = Longsor::where('kecamatan' ,$key)->get();
+		// dd($data);
+		return view('frontend.detail', compact('data','key'));
 	}
 	/**
 	 * Show the form for editing the specified resource.
