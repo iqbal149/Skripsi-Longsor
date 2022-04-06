@@ -5,7 +5,7 @@
   <div class="row align-items-center">
     <div class="col-md-9 ml-auto mr-auto text-center">
       <a class="navbar-brand" href="{{ route('index') }}"><img src="{{ asset('logo-umkm.png') }}" style="max-width: 480px;"></a>
-      <h3>{{ __('Aplikasi ini dikembangkan untuk mendata persebaran Usaha Mikro Kecil dan Menengah di Kelurahan Sungai Kapih, Kecamatan Sambutan, Kota Samarinda') }} </h3>
+      <h3>{{ __('Pengelompokan data Bencana Longsor dengan Metode Fuzzy C-Means') }} </h3>
     </div>
     <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
       <form class="form" method="POST" action="{{ route('login') }}">
@@ -23,7 +23,7 @@
                     <i class="material-icons">email</i>
                   </span>
                 </div>
-                <input type="email" name="email" class="form-control" placeholder="{{ __('Email...') }}" value="{{ old('email', 'admin@material.com') }}" required>
+                <input type="email" name="email" class="form-control" placeholder="{{ __('Email...') }}" value="{{ old('email') }}" required>
               </div>
               @if ($errors->has('email'))
                 <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">
@@ -38,7 +38,7 @@
                     <i class="material-icons">lock_outline</i>
                   </span>
                 </div>
-                <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('Password...') }}" value="{{ !$errors->has('password') ? "secret" : "" }}" required>
+                <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('Password...') }}" required>
               </div>
               @if ($errors->has('password'))
                 <div id="password-error" class="error text-danger pl-3" for="password" style="display: block;">

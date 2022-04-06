@@ -3,7 +3,7 @@
 
 <head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>UMKM Sungai Kapih- Sistem Informasi UMKM</title>
+    <title>{{ __('Sistem Informasi Pengelompokan Bencana Longsor ') }}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('material') }}/img/apple-icon.png">
@@ -96,9 +96,8 @@
     <script src="{{ asset('racks') }}/js/bootstrap-datepicker.js"></script>
     <script src="{{ asset('racks') }}/js/jquery.timepicker.min.js"></script>
     <script src="{{ asset('racks') }}/js/main.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js">
-    </script>
-    <script src="{{ asset('stickytable') }}/js/jquery.stickyheader.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
+    {{-- <script src="{{ asset('stickytable') }}/js/jquery.stickyheader.js"></script> --}}
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
