@@ -140,13 +140,13 @@
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table display datatable table-striped" id="datatable" width="100%">
-                                        <thead class="text-center">
+                                        <thead>
                                             <th>{{ __('Kode') }}</th>
                                             <th>{{ __('Kecamatan') }}</th>
-                                            <th>{{ __('Kejadian') }}</th>
-                                            <th>{{ __('Korban') }}</th>
-                                            <th>{{ __('Kerusakan') }}</th>
-                                            <th>{{ __('Hasil Cluster') }}</th>
+                                            <th class="text-center">{{ __('Kejadian') }}</th>
+                                            <th class="text-center">{{ __('Korban') }}</th>
+                                            <th class="text-center">{{ __('Kerusakan') }}</th>
+                                            <th class="text-center">{{ __('Hasil Cluster') }}</th>
 
                                         </thead>
                                         <tbody class="text-center">
@@ -158,10 +158,10 @@
                                                 <tr>
                                                     <td>C{{ str_pad($loop->iteration, 4, '0', STR_PAD_LEFT) }}</td>
                                                     <td nowrap class="text-left">{{ $rekap[$key]->kecamatan }}</td>
-                                                    <td nowrap>{{ $rekap[$key]->kejadian }}</td>
-                                                    <td>{{ $rekap[$key]->korban }}</td>
-                                                    <td>{{ $rekap[$key]->kerusakan }}</td>
-                                                    <td><strong>{{ $value }}</strong></td>
+                                                    <td nowrap class="text-center">{{ $rekap[$key]->kejadian }}</td>
+                                                    <td class="text-center">{{ $rekap[$key]->korban }}</td>
+                                                    <td class="text-center">{{ $rekap[$key]->kerusakan }}</td>
+                                                    <td class="text-center"><strong>{{ $value }}</strong></td>
 
                                                 </tr>
                                             @endforeach
