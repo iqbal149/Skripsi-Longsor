@@ -1,4 +1,5 @@
 @extends('frontend.master')
+@section('navHome') active @stop
 @section('content')
     <section class="home-slider">
         <div class="slider-item bread-wrap" style="background-image:url(../img/bg-login.jpg)!important"

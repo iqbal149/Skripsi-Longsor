@@ -124,6 +124,7 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['namespace' => 'Frontend'], function () {
 	Route::get('/', 'IndexController@index')->name('index');
 	Route::get('/kejadian/{id}', 'IndexController@show')->name('kejadian.show');
+	Route::get('/hasil', 'IndexController@hasil')->name('hasil');
 	
 	Route::get('/error', function () {
 		return abort(404);

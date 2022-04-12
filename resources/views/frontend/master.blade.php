@@ -42,8 +42,8 @@
             </button>
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active"><a href="/" class="nav-link">Home</a></li>
-                    <li class="nav-item active"><a href="/" class="nav-link">Fuzzy C-Means</a></li>
+                    <li class="nav-item @yield('navHome')"><a href="/" class="nav-link">Home</a></li>
+                    <li class="nav-item @yield('navCmeans')"><a href="{{ route('hasil') }}" class="nav-link">Fuzzy C-Means</a></li>
                     {{-- <!-- <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
             <li class="nav-item"><a href="solutions.html" class="nav-link">Solution</a></li>
             <li class="nav-item dropdown">
@@ -55,7 +55,7 @@
             </li>
             <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
             <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li> --> --}}
-                    <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
+                    <li class="nav-item @yield('navLogin')"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
                 </ul>
             </div>
         </div>
