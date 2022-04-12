@@ -9786,14 +9786,14 @@ h5,
 }
 
 .ftco-navbar-light {
-    /*background: transparent !important;*/
+    /* background: transparent !important; */
     /* background: #348ac7 !important; */
     background: #663333 !important;
     position: fixed;
     left: 0;
     right: 0;
     z-index: 9999;
-    /*top: 20px;*/
+    top: 0px;
 }
 
 @media (max-width: 991.98px) {
@@ -10510,7 +10510,7 @@ h5,
     background-position: center center;
     position: relative;
     padding: 5em 0 15em 0;
-    background: #da7216;
+    /* background: #da7216; */
 }
 
 .ftco-section-parallax .parallax-img.parallax-img-2 {

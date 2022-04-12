@@ -229,6 +229,7 @@ return [
 		'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 		'Datatables' => Yajra\Datatables\Facades\Datatables::class,
 		'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
+		'Helper' => App\Helpers\Website::class ,
 
 	],
 

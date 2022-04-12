@@ -46,6 +46,8 @@
                     <h2>KATEGORI BENCANA</h2>
                 </div>
             </div>
+
+
             <div class="row justify-content-center text-center">
                 <div class="col-md-4 d-flex align-self-stretch justify-content-center ftco-animate">
                     <div class="media block-6 services d-block text-center">
@@ -90,16 +92,24 @@
             </div>
         </div>
     </section>
-    <section class="ftco-section-parallax">
+    <section class="ftco-section-parallax shadow">
         <div class="parallax-img d-flex align-items-center">
             <div class="container">
                 <div class="row d-flex justify-content-center">
                     <div class="col-md-10 text-center heading-section heading-section-white ftco-animate">
-                        <h2 class="h1 font-weight-bold">Chart Data Longsor</h2>
+                        <h2 class="h1 font-weight-bold text-dark">Chart Data Longsor</h2>
                         <!-- <p><a href="#" class="btn btn-primary btn-outline-white mt-3 py-3 px-4">View more details</a></p> -->
-                        <div id="app">
-                            {{-- {!! $UsahaChart->container() !!} --}}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="cluster"></div>
+
+                            </div>
+                            <div class="col-md-12">
+                                <div id="kejadian"></div>
+                            </div>
                         </div>
+
+
                     </div>
                 </div>
             </div>
@@ -219,6 +229,123 @@
                 "buttons": ['copy', 'csv', 'excel', 'pdf', 'print', 'pageLength'],
 
             });
+        });
+    </script>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script>
+        let kejadianchart = Highcharts.chart('kejadian', {
+            chart: {
+                plotBackgroundColor: null,
+                backgroundColor: 'transparent',
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Chart Jumlah Kejadian per Kecamaatan'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.y} '
+                    },
+                    showInLegend: false
+                }
+            },
+
+            series: [{
+                name: 'Jumlah Kejadian',
+                colorByPoint: true,
+                data: (function() {
+                    var query = <?php echo json_encode(kejadianGet()); ?>;
+                    // console.log(query);
+                    var data = [];
+                    let kejadian = 'Kejadian '
+                    for (var i = 0; i < query.length; i++) {
+                        data.push({
+                            name: kejadian.concat(query[i].kecamatan),
+                            y: query[i].kejadian
+                        });
+                    }
+
+                    return data;
+                }())
+            }]
+        });
+    </script>
+
+    <script>
+        let clusterchart = Highcharts.chart('cluster', {
+            chart: {
+                plotBackgroundColor: null,
+                backgroundColor: 'transparent',
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Chart Jumlah Anggota Cluster'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.y} Anggota'
+                    },
+                    showInLegend: true
+                }
+            },
+
+            series: [{
+                name: 'Jumlah Anggota Cluster',
+                colorByPoint: true,
+                data: (function() {
+                    // var query = []
+                    var query = <?php echo json_encode(clusterGet()); ?>;
+
+                    let a = [],
+                        prev;
+                    query.sort();
+                    for (let i = 0; i < query.length; i++) {
+                        if (query[i] !== prev) {
+                            a.push(1)
+                        } else {
+                            a[a.length - 1]++;
+                        }
+                        prev = query[i];
+                    }
+                    // console.log(a);
+                    var data = [];
+                    let cluster = 'Cluster '
+                    for (var i = 0; i < a.length; i++) {
+                        data.push({
+                            name: 'Cluster ' + [i + 1],
+                            y: a[i]
+                        });
+                    }
+
+                    return data;
+                }())
+            }]
         });
     </script>
 @endsection

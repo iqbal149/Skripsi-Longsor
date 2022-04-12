@@ -19,8 +19,7 @@ class IndexController extends Controller {
 		
 		$data['cekhasil'] = DB::table('hasil')->orderBy('id', 'DESC')
 			->get();
-		$data['hasil'] = DB::table('hasil')->orderBy('id', 'DESC')
-			->first();
+		
 		$cluster = DB::table('hasil')->select('hasil_cluster')->orderBy('id', 'DESC')
 			->first();
 			
@@ -29,6 +28,28 @@ class IndexController extends Controller {
 
 		$data['rekap'] = DB::table('rekap')
 			->orderBy('kecamatan','asc')->get();
+			
+		$hasil = DB::table('hasil')->orderBy('id', 'DESC')
+			->first();
+
+			$querycount = DB::table('rekap')
+			->select('kecamatan', 'kejadian')
+			->orderBy('kecamatan', 'asc')->get();
+		$jml = [];
+		$counts =[];
+		$arr = json_decode($hasil->hasil_cluster);
+		
+		// dd($counts);
+
+		foreach (array_count_values($arr) as $key => $value) {
+			$jml[$key]=$value;
+		}
+
+		$arr = json_decode($hasil->hasil_cluster);
+		$cluster = array_count_values($arr);
+		// dd(json_encode($jml));
+
+		// dd(json_decode($data['rekap']));
 		// return $data;
 		// dd(json_decode($data['hasil']->hasil_cluster));
 

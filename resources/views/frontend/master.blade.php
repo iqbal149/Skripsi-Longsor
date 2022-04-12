@@ -32,7 +32,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light" id="ftco-navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
             <a class="navbar-brand" href="{{ route('index') }}"><img src="{{ asset('logo-umkm.png') }}"
                     style="max-width: 250px;"></a>
@@ -43,6 +43,7 @@
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active"><a href="/" class="nav-link">Home</a></li>
+                    <li class="nav-item active"><a href="/" class="nav-link">Fuzzy C-Means</a></li>
                     {{-- <!-- <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
             <li class="nav-item"><a href="solutions.html" class="nav-link">Solution</a></li>
             <li class="nav-item dropdown">

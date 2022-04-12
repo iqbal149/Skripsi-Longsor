@@ -1,6 +1,21 @@
 @extends('frontend.master')
 @section('content')
-    <section class="ftco-section contact-section">
+    <section class="home-slider">
+        <div class="slider-item bread-wrap" style="background-image:url(../img/bg-login.jpg)!important"
+            data-stellar-background-ratio="0.2">
+            {{-- <div class="overlay"></div> --}}
+            <div class="container">
+                <div class="row slider-text justify-content-center align-items-center">
+                    <div class="col-md-10 col-sm-12 ftco-animate mb-4 text-center ">
+                        <p class="breadcrumbs"><span class="mr-2"><a href="{{ route('index') }}">Home</a></span> <span
+                                class="mr-2"><a href="#">Daftar</a></span> <span>Kejadian</span></p>
+                        <h1 class="mb-3"><strong>{{ strtoupper($key) }}</strong></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-section">
         <div class="container">
             <div class="row d-flex mb-5 contact-info">
                 <div class="col-md-12 mb-12 text-center">
@@ -9,7 +24,7 @@
                 <hr>
                 <div class="w-100"></div>
                 <div class="table-responsive">
-                    <table class="table display wo-warp" width="100" id="datatable">
+                    <table class="table display datatable" id="datatable">
                         <thead class="text-center">
                             <th>{{ __('No.') }}</th>
                             <th>{{ __('Alamat') }}</th>
@@ -31,7 +46,6 @@
                             <th>{{ __('Sawah') }}</th>
                             <th>{{ __('Hutan') }}</th>
                             <th>{{ __('Creation date') }}</th>
-                            <th class="text-center">{{ __('Actions') }}</th>
                         </thead>
                         <tbody class="text-center">
                             @foreach ($data as $key => $longsor)
@@ -105,5 +119,20 @@
         </div>
     </section>
 @section('js')
+    <script>
+        $(document).ready(function() {
+            $('table.datatable').DataTable({
+                // responsive: true,
 
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, "All"]
+                ], // page length options
+
+                "dom": 'Bfrtip',
+                "buttons": ['copy', 'csv', 'excel', 'pdf', 'print', 'pageLength'],
+
+            });
+        });
+    </script>
 @endsection

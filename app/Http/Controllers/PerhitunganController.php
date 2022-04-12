@@ -9,22 +9,26 @@ use Phpml\Math\Distance\Euclidean;
 
 class PerhitunganController extends Controller
 {
-    public function index(){
-        $data['cekhasil'] = DB::table('hasil')->orderBy('id','DESC')
+    public function index()
+    {
+        $data['cekhasil'] = DB::table('hasil')->orderBy('id', 'DESC')
             ->get();
-        $data['hasil'] = DB::table('hasil')->orderBy('id','DESC')
+        $data['hasil'] = DB::table('hasil')->orderBy('id', 'DESC')
             ->first();
         $data['uji'] = DB::table('uji')
             ->first();
         $data['rekap'] = DB::table('rekap')
             ->get();
-            // dd($data);
+        $cluster = DB::table('hasil')->orderBy('id', 'DESC')
+            ->first();        
+            $obj = json_decode($hasil, true);
+        dd($cluster);
         return view('backend.perhitungan.index', $data);
     }
     public function cmeans(Request $request)
     {
         $cek_hasil = DB::table('hasil')->count();
-        if($cek_hasil != 0){
+        if ($cek_hasil != 0) {
             DB::table('hasil')->truncate();
             DB::table('uji')->truncate();
         }
@@ -204,7 +208,7 @@ class PerhitunganController extends Controller
                     $p[$j + 1] += $sumL[$key];
                 }
 
-            } 
+            }
             $fungsiObjektif[$j] = $p[$j + 1];
             $error[$j] = $p[$j + 1] - $p[$j];
             if ((abs($p[$j + 1] - $p[$j]) <= $errorTerkecil)) {
@@ -238,7 +242,7 @@ class PerhitunganController extends Controller
             'hasil_fungsi_objektif' => json_encode($fungsiObjektif),
             'hasil_error' => json_encode($error)
         ];
-            //    dd($simpan);
+        //    dd($simpan);
         DB::table('hasil')->insert($simpan);
 
         return redirect('perhitungan')->with('success', 'Data berhasil dihitung ulang');
@@ -248,16 +252,16 @@ class PerhitunganController extends Controller
     function matriksPartisiAwal($jumlahCluster, $jumlahData)
     {
         $matriks = [];
-            $data = DB::table('matriks_3')->get();
-            // dd($data);
-            for ($i = 0; $i < $jumlahData; $i++) {
-                $matriks[$i] = [
-                    $data[$i]->matriks_3_1,
-                    $data[$i]->matriks_3_2,
-                    $data[$i]->matriks_3_3,
-                ];
-            }
-        
+        $data = DB::table('matriks_3')->get();
+        // dd($data);
+        for ($i = 0; $i < $jumlahData; $i++) {
+            $matriks[$i] = [
+                $data[$i]->matriks_3_1,
+                $data[$i]->matriks_3_2,
+                $data[$i]->matriks_3_3,
+            ];
+        }
+
         return $matriks;
     }
 
