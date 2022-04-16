@@ -172,6 +172,62 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header bg-dark">
+                                <h4 class="card-title text-white ">{{ __('Pengujian Partition Coefficient Index (PCI)') }} </h4>
+                            </div>
+                            @if ($pci == null)
+                                <div class="row">
+                                    <div class="col-12 text-center">
+                                        <a href="{{ route('validasi') }}" class="btn btn-success">
+                                            <i class="fa-solid fa-square-root-variable"></i> &nbsp;
+                                            Hitung Pengujian</a>
+                                    </div>
+                                </div>
+                            @else
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table datatable" width="100%" id="datatable">
+                                            <thead class="text-center">
+                                                <tr>
+                                                    <th>Kode</th>
+                                                    <th>𝝁i1</th>
+                                                    <th>𝝁i2</th>
+                                                    <th>𝝁i3</th>
+                                                </tr>
+
+                                            </thead>
+                                            <tbody class="text-center">
+                                                @php
+                                                    $pc = json_decode($pci->data_uji);
+                                                    // dd($pc);
+                                                @endphp
+                                                @foreach ($pc as $key => $value)
+                                                    <tr>
+                                                        <td>C{{ str_pad($loop->iteration, 4, '0', STR_PAD_LEFT) }}</td>
+                                                        @foreach ($value as $key => $data)
+                                                        <td>{{ $data }}</td>
+                                                        @endforeach
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                            <tfoot class="text-center">
+                                                <tr>
+                                                    <th>Hasil Perhitungan PCI</th>
+                                                    <th></th>
+                                                    <th>{{ $pci->hasil }}</th>
+                                                    <th></th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                {{-- <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header bg-dark">
                                 <h4 class="card-title text-white ">{{ __('Pengujian Silhouette Coefficient') }} </h4>
                             </div>
                             @if ($uji == null)
@@ -216,7 +272,7 @@
                             @endif
                         </div>
                     </div>
-                </div>
+                </div> --}}
             @else
                 <div class="card">
                     <div class="card-content">

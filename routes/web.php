@@ -119,6 +119,10 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'pengujian',
 		'uses' => 'PerhitunganController@pengujian',
 	]);
+	Route::get('validasi', [
+		'as' => 'validasi',
+		'uses' => 'PerhitunganController@validasi',
+	]);
 });
 
 Route::group(['namespace' => 'Frontend'], function () {

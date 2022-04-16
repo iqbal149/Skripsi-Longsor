@@ -19,10 +19,9 @@ class PerhitunganController extends Controller
             ->first();
         $data['rekap'] = DB::table('rekap')
             ->get();
-        $cluster = DB::table('hasil')->orderBy('id', 'DESC')
-            ->first();        
-            $obj = json_decode($hasil, true);
-        dd($cluster);
+        $data['pci'] = DB::table('pci')
+            ->first();
+
         return view('backend.perhitungan.index', $data);
     }
     public function cmeans(Request $request)
@@ -194,7 +193,6 @@ class PerhitunganController extends Controller
 
                         $sumML[$key] += $ML[$i][$key];
                     }
-
                 }
 
                 for ($i = 0; $i < $jumlahCluster; $i++) {
@@ -265,6 +263,44 @@ class PerhitunganController extends Controller
         return $matriks;
     }
 
+    public function validasi()
+    {
+        DB::table('pci')->truncate();
+
+        $hasil = DB::table('hasil')
+            // ->where('hasil_id', $id)
+            ->first();
+        $clusterHitung = json_decode($hasil->hasil_cluster_hitung);
+        $cluster = json_decode($hasil->hasil_cluster);
+        $dataUji = [];
+        $sumData = [];
+        $pci = [];
+
+        for ($i = 0; $i <= 3; $i++) {
+            $sumData[$i] = 0;
+        }
+        for ($i = 0; $i < 3; $i++) {
+            foreach ($clusterHitung as $key => $value) {
+                // for ($i = 0; $i < 3; $i++) {
+
+                $dataUji[$key][$i] = pow($clusterHitung[$key][$i], 2);
+                $sumData[$i] += $dataUji[$key][$i];
+            //  $pci[$key] = 1 / count($clusterHitung) * ($sumData);
+            // dd($sumData[$i]);
+            }
+        }
+        // dd(json_encode($dataUji));
+        $pci = 1 / count($clusterHitung) * ($sumData[0] + $sumData[1] + $sumData[2]);
+        // return $pci;
+        $simpan = [
+            'hasil' => json_encode($pci),
+            'data_uji' => json_encode($dataUji),
+        ];
+
+        DB::table('pci')->insert($simpan);
+
+        return redirect('perhitungan');
+    }
     public function pengujian()
     {
         $hasil = DB::table('hasil')
