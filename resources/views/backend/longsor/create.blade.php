@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'longsor', 'titlePage' => __('Tambah UMKM')])
+@extends('layouts.app', ['activePage' => 'longsor', 'titlePage' => __('Tambah Data Longsor')])
 @section('content')
 <div class="content">
     <div class="container-fluid">
