@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
 		// 'longsor' => 'LongsorController',
 		'tahun' => 'TahunController',
 		'kabupaten' => 'KabupatenController',
+		'kabupaten.kecamatan' => 'KecamatanController',
 		'rekap' => 'RekapController',
 		'matriks' => 'MatriksController',
 

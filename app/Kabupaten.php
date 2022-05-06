@@ -12,4 +12,13 @@ class Kabupaten extends Model
 		'label',
 		
 	];
+
+	public function hasKecamatan()
+	{
+		return $this->hasMany('App\Kecamatan', 'id_kabupaten', 'uuid');
+	}
+	public function users()
+	{
+		return $this->hasOne(App\User::class);
+	}
 }

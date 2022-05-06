@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
+use App\Kabupaten;
 
 class UserController extends Controller
 {
@@ -26,7 +27,14 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        // $kab = Kabupaten::whereNotIn('kode', function ($query) {
+        //     $query->select('id_kab')->from('users');
+        // })->pluck('label', 'kode');
+        
+        $kab = Kabupaten::pluck('label', 'kode');
+
+        // dd($kab);
+        return view('users.create', compact('kab'));
     }
 
     /**
@@ -38,7 +46,27 @@ class UserController extends Controller
      */
     public function store(UserRequest $request, User $model)
     {
-        $model->create($request->merge(['password' => Hash::make($request->get('password'))])->all());
+        // $model->create($request->merge(['password' => Hash::make($request->get('password'))])->all());
+// dd($request);
+        $this->validate($request, [
+            'name' => 'required',
+
+            'email' => 'required|email|unique:users,email',
+
+            'password' => 'required',
+            'id_kab' => 'required',
+
+            // 'role' => 'required'
+        ]);
+
+        $input = $request->all();
+
+        $input['password'] = Hash::make($input['password']);
+
+
+        User::create($input);
+
+        // $user->assignRole($request->input('role'));
 
         return redirect()->route('user.index')->withStatus(__('User successfully created.'));
     }

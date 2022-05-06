@@ -176,7 +176,9 @@ return [
 		App\Providers\RouteServiceProvider::class,
 		Maatwebsite\Excel\ExcelServiceProvider::class,
 		Yajra\Datatables\DatatablesServiceProvider::class,
-		ConsoleTVs\Charts\ChartsServiceProvider::class,
+		ConsoleTVs\Charts\ChartsServiceProvider::class,		
+		Collective\Html\HtmlServiceProvider::class ,
+
 
 	],
 
@@ -229,7 +231,11 @@ return [
 		'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 		'Datatables' => Yajra\Datatables\Facades\Datatables::class,
 		'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
-		'Helper' => App\Helpers\Website::class ,
+		'Helper' => App\Helpers\Website::class,		
+		'Form' => Collective\Html\FormFacade::class,		
+		'Html' => Collective\Html\HtmlFacade::class,
+
+
 
 	],
 
