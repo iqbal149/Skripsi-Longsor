@@ -98,7 +98,7 @@ class LongsorController extends Controller
 
 		// dd($longsor);
 		$longsor->save();
-		return redirect()->route('longsor.index', $uuid)->with('success', 'data successfully added');
+		return redirect()->route('tahun.longsor.index', $tahun)->with('success', 'data successfully added');
     }
 
     /**
@@ -162,6 +162,7 @@ class LongsorController extends Controller
         $data->sawah = $request->sawah;
         $data->hutan = $request->hutan;
         $data->save();
+			// dd($data);
 		return redirect()->route('tahun.longsor.index', $idtahun)->with('success', 'data successfully updated');
     }
 
@@ -275,6 +276,6 @@ class LongsorController extends Controller
 		// set feedback
 
 		// Tampilkan index buku
-		return redirect()->route('tahun.longsor.index', $tahun)->with('success', 'Berhasil mengimport data Usaha');
+		return redirect()->route('tahun.longsor.index', $tahun)->with('success', 'Berhasil mengimport data Longsor');
 	}
 }
