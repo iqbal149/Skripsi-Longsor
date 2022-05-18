@@ -27,19 +27,21 @@
                                                     <th>{{ __('Data') }}</th>
                                                     <th>{{ __('Kelola') }}</th>
                                                     <th>{{ __('Terahkir Diupdate') }}</th>
-                                                    <th>{{ __('Aksi') }}</th>
+                                                    @if (auth()->user()->admin == 1)
+                                                        <th>{{ __('Aksi') }}</th>
+                                                    @endif
                                                 </thead>
                                                 <tbody class="text-center">
                                                     @foreach ($tahuns as $key => $tahun)
                                                         <tr>
                                                             <td>{{ ++$key }}</td>
-                                                            
+
                                                             <td>
                                                                 <strong>{{ $tahun->label }}</strong>
                                                             </td>
                                                             <td class="text-center">
                                                                 {{ $tahun->hasLongsor->count() }}
-                                                                
+
                                                             </td>
                                                             <td><a href="{{ route('tahun.longsor.index', $tahun->uuid) }}"
                                                                     class="btn btn-sm btn-success">
@@ -47,34 +49,37 @@
                                                                 </a>
                                                             </td>
                                                             <td>{{ $tahun->updated_at->diffForhumans() }}</td>
-                                                            <td class="td-actions text-center">
-                                                                <form action="{{ route('tahun.destroy', $tahun->id) }}"
-                                                                    method="post">
-                                                                    @csrf
-                                                                    @method('delete')
-                                                                    {{-- <a rel="tooltip" class="btn btn-md btn-info"
+                                                            @if (auth()->user()->admin == 1)
+                                                                <td class="td-actions text-center">
+                                                                    <form
+                                                                        action="{{ route('tahun.destroy', $tahun->id) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        @method('delete')
+                                                                        {{-- <a rel="tooltip" class="btn btn-md btn-info"
                                                                         href="{{ route('tahun.show', $tahun->id) }}"
                                                                         data-original-title="" title="">
                                                                         <i class="material-icons">remove_red_eye</i>
                                                                         <div class="ripple-container"></div>
                                                                         Lihat
                                                                     </a> --}}
-                                                                    <a rel="tooltip" class="btn btn-md btn-success"
-                                                                        href="{{ route('tahun.edit', $tahun->id) }}"
-                                                                        data-original-title="" title="">
-                                                                        <i class="material-icons">edit</i>
-                                                                        <div class="ripple-container"></div>
-                                                                        Edit
-                                                                    </a>
-                                                                    <button type="button" class="btn btn-md btn-danger"
-                                                                        data-original-title="" title=""
-                                                                        onclick="confirm('{{ __('Are you sure you want to delete this usaha?') }}') ? this.parentElement.submit() : ''">
-                                                                        <i class="material-icons">close</i>
-                                                                        <div class="ripple-container"></div>
-                                                                        Hapus
-                                                                    </button>
-                                                                </form>
-                                                            </td>
+                                                                        <a rel="tooltip" class="btn btn-md btn-success"
+                                                                            href="{{ route('tahun.edit', $tahun->id) }}"
+                                                                            data-original-title="" title="">
+                                                                            <i class="material-icons">edit</i>
+                                                                            <div class="ripple-container"></div>
+                                                                            Edit
+                                                                        </a>
+                                                                        <button type="button" class="btn btn-md btn-danger"
+                                                                            data-original-title="" title=""
+                                                                            onclick="confirm('{{ __('Are you sure you want to delete this usaha?') }}') ? this.parentElement.submit() : ''">
+                                                                            <i class="material-icons">close</i>
+                                                                            <div class="ripple-container"></div>
+                                                                            Hapus
+                                                                        </button>
+                                                                    </form>
+                                                                </td>
+                                                            @endif
                                                         </tr>
                                                     @endforeach
                                                 </tbody>

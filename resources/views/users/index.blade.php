@@ -33,7 +33,7 @@
                     <thead class=" text-dark">
                       <th>{{ __('Nama') }}</th>
                       <th>{{ __('Email') }}</th>
-                      <th>{{ __('Puskesmas') }}</th>
+                      <th>{{ __('Kabupaten') }}</th>
                       <th>{{ __('Creation date') }}</th>
                       <th class="text-right">{{ __('Actions') }}</th>
                     </thead>
@@ -42,7 +42,7 @@
                         <tr>
                           <td>{{ $user->name }}</td>
                           <td>{{ $user->email }}</td>
-                          <td>{!! $user->kabupaten->label !!}</td>
+                          <td>{!! $user->kabupaten['label'] !!}</td>
                           <td>{{ $user->created_at->format('Y-m-d') }}</td>
                           <td class="td-actions text-right">
                             @if ($user->id != auth()->id())

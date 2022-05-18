@@ -39,6 +39,6 @@ class User extends Authenticatable
 
     public function kabupaten()
     {
-        return $this->hasOne('App\Kabupaten', 'id_kab', 'kode');
+        return $this->belongsTo('App\Kabupaten', 'id_kab', 'kode');
     }
 }

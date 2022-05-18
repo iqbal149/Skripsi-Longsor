@@ -16,6 +16,7 @@ class RekapController extends Controller
      */
     public function index()
     {
+
         $data = Rekap::latest()->get();
         return view('backend.rekap.index', compact('data'));
     }

@@ -9,7 +9,7 @@ class Kabupaten extends Model
     protected $table = 'kabupaten';
 	protected $fillable = [
 		'kode',
-		'label',
+		'label'
 		
 	];
 
@@ -17,8 +17,8 @@ class Kabupaten extends Model
 	{
 		return $this->hasMany('App\Kecamatan', 'id_kabupaten', 'uuid');
 	}
-	public function users()
+	public function hasUser()
 	{
-		return $this->hasOne(App\User::class);
+		return $this->hasMany('App\User', 'id_kab', 'kode');
 	}
 }

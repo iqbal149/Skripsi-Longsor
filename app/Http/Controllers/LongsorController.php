@@ -5,6 +5,7 @@ use App\Imports\LongsorImport;
 use App\Exports\formatLongsor;
 use App\Longsor;
 use App\Tahun;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
@@ -46,7 +47,7 @@ class LongsorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $uuid)
+    public function store(Request $request, $tahun)
     {
         // dd($request);
 
@@ -74,7 +75,7 @@ class LongsorController extends Controller
         // dd($uuid);
 
         $longsor = new Longsor();
-		$longsor->id_tahun = $uuid;
+		$longsor->id_tahun = $tahun;
 		$longsor->uuid = Uuid::uuid4()->getHex();
 		$longsor->alamat = $request->alamat;
 		$longsor->kecamatan = $request->kecamatan;
@@ -140,29 +141,56 @@ class LongsorController extends Controller
     public function update(Request $request, $idtahun, $idlongsor)
     {
         // dd($request);
+		$this->validate($request, [
+			'alamat' => 'required',
+			'kecamatan' => 'required',
+			'tgl' => 'required',
+			'kb_meninggal' => 'required',
+			'kb_hilang' => 'required',
+			'kb_luka' => 'required',
+			'kb_mengungsi' => 'required',
+			'kr_rumah_rb' => 'required',
+			'kr_rumah_rr' => 'required',
+			'kr_rumah_terendam' => 'required',
+			'kantor' => 'required',
+			'sekolah' => 'required',
+			't_ibadah' => 'required',
+			'sarana_kesehatan' => 'required',
+			'bangunan_lain' => 'required',
+			'jembatan' => 'required',
+			'jalan' => 'required',
+			'sawah' => 'required',
+			'hutan' => 'required',
+		]);
         $data = Longsor::whereUuid($idlongsor)->firstOrFail();
 		// dd($data);
-        $data->alamat = $request->alamat;
-		$data->kecamatan = $request->kecamatan;
-		$data->tgl = $request->tgl;
-		$data->kb_meninggal = $request->kb_meninggal;
-		$data->kb_hilang = $request->kb_hilang;
-		$data->kb_luka = $request->kb_luka;
-		$data->kb_mengungsi = $request->kb_mengungsi;
-		$data->kr_rumah_rb = $request->kr_rumah_rb;
-		$data->kr_rumah_rr = $request->kr_rumah_rr;
-		$data->kr_rumah_terendam = $request->kr_rumah_terendam;
-		$data->kantor = $request->kantor;
-		$data->sekolah = $request->sekolah;
-		$data->t_ibadah = $request->t_ibadah;
-        $data->sarana_kesehatan = $request->sarana_kesehatan;
-        $data->bangunan_lain = $request->bangunan_lain;
-        $data->jembatan = $request->jembatan;
-        $data->jalan = $request->jalan;
-        $data->sawah = $request->sawah;
-        $data->hutan = $request->hutan;
-        $data->save();
-			// dd($data);
+		// $input = $request->all();
+
+		$data->alamat = request('alamat');
+		$data->kecamatan = request('kecamatan');
+		$data->tgl = request('tgl');
+		$data->kb_meninggal = request('kb_meninggal');
+		$data->kb_hilang = request('kb_hilang');
+		$data->kb_luka = request('kb_luka');
+		$data->kb_mengungsi = request('kb_mengungsi');
+		$data->kr_rumah_rb = request('kr_rumah_rb');
+		$data->kr_rumah_rr = request('kr_rumah_rr');
+		$data->kr_rumah_terendam = request('kr_rumah_terendam');
+		$data->kantor = request('kantor');
+		$data->sekolah = request('sekolah');
+		$data->t_ibadah = request('t_ibadah');
+		$data->sarana_kesehatan = request('sarana_kesehatan');
+		$data->bangunan_lain = request('bangunan_lain');
+		$data->jembatan = request('jembatan');
+		$data->jalan = request('jalan');
+		$data->sawah = request('sawah');
+		$data->hutan = request('hutan');
+		// $data->save('data');
+		// $data->update($input);
+		// Longsor::whereUuid($idlongsor)->update($data);
+		$data->update();
+		// dd($data);
+
 		return redirect()->route('tahun.longsor.index', $idtahun)->with('success', 'data successfully updated');
     }
 

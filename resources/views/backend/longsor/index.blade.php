@@ -40,7 +40,9 @@
                                             <th>{{ __('Sawah') }}</th>
                                             <th>{{ __('Hutan') }}</th>
                                             <th>{{ __('Creation date') }}</th>
+            @if(auth()->user()->admin == 1)
                                             <th class="text-center">{{ __('Actions') }}</th>
+                                            @endif
                                         </thead>
                                         <tbody class="text-center">
                                             @foreach ($longsors as $key => $longsor)

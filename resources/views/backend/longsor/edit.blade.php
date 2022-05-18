@@ -4,8 +4,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <form method="post" action="{{ route('tahun.longsor.update', [$tahun->uuid,$longsor->uuid]) }}"
-                        autocomplete="off" class="form-horizontal" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('tahun.longsor.update', [$tahun->uuid, $longsor->uuid]) }}"
+                        autocomplete="off" class="form-horizontal">
                         @csrf
                         @method('PATCH')
                         <div class="card ">
@@ -42,8 +42,8 @@
                                             <div
                                                 class="col-md-6 form-group {{ $errors->has('kecamatan') ? ' has-danger' : '' }}">
                                                 <label>{{ __('Kecamatan') }}</label>
-                                                <select class="form-control" id="foralamat" name="Kecamatan">
-                                                    <option disabled>Pilih Kecamatan</option>
+                                                <select class="form-control" id="foralamat" name="kecamatan">
+                                                    {{-- <option disabled>Pilih Kecamatan</option> --}}
                                                     <!-- Samarinda -->
                                                     <option value="Kec. Samarinda Ulu">Kec. Samarinda Ulu</option>
                                                     <option value="Kec. Samarinda Ilir">Kec. Samarinda llir</option>

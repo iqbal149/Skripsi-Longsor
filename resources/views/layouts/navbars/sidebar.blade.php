@@ -44,42 +44,44 @@
 
             <li class="nav-item{{ $activePage == 'rekap' ? ' active' : '' }}">
                 <a class="nav-link" href="{{ route('rekap.index') }}">
-                    
+
                     <i class="fa-solid fa-list-check"></i>
                     <p>{{ __('Data Rekap Kejadian') }}</p>
                 </a>
             </li>
+            @if (auth()->user()->admin == 1)
+                <li class="nav-item{{ $activePage == 'perhitungan' ? ' active' : '' }}">
+                    <a class="nav-link" href="{{ route('perhitungan.index') }}">
+                        <i class="fa fa-calculator"></i>
+                        <p>{{ __('Perhitungan') }}</p>
+                    </a>
+                </li>
 
-            <li class="nav-item{{ $activePage == 'perhitungan' ? ' active' : '' }}">
-                <a class="nav-link" href="{{ route('perhitungan.index') }}">
-                    <i class="fa fa-calculator"></i>
-                    <p>{{ __('Perhitungan') }}</p>
-                </a>
-            </li>
-            <li class="nav-item {{ $activePage == 'matriks' || $activePage == 'kabupaten' ? ' active' : '' }}">
-                <a class="nav-link" data-toggle="collapse" href="#master" aria-expanded="true">
-                    <i class="fa-solid fa-server"></i>
-                    <p>{{ __('Master Data') }}
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="master">
-                    <ul class="nav">
-                        <li class="nav-item{{ $activePage == 'kabupaten' ? ' active' : '' }}">
-                            <a class="nav-link" href="{{ route('kabupaten.index') }}">
-                                <i class="fa fa-server"></i>
-                                <p>{{ __('Data Kabupaten') }}</p>
-                            </a>
-                        </li>
-                        <li class="nav-item{{ $activePage == 'matriks' ? ' active' : '' }}">
-                            <a class="nav-link" href="{{ route('matriks.index') }}">
-                                <i class="fa-brands fa-dropbox"></i>
-                                <p>{{ __('Data Matriks') }}</p>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
+                <li class="nav-item {{ $activePage == 'matriks' || $activePage == 'kabupaten' ? ' active' : '' }}">
+                    <a class="nav-link" data-toggle="collapse" href="#master" aria-expanded="true">
+                        <i class="fa-solid fa-server"></i>
+                        <p>{{ __('Master Data') }}
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse" id="master">
+                        <ul class="nav">
+                            <li class="nav-item{{ $activePage == 'kabupaten' ? ' active' : '' }}">
+                                <a class="nav-link" href="{{ route('kabupaten.index') }}">
+                                    <i class="fa fa-server"></i>
+                                    <p>{{ __('Data Kabupaten') }}</p>
+                                </a>
+                            </li>
+                            <li class="nav-item{{ $activePage == 'matriks' ? ' active' : '' }}">
+                                <a class="nav-link" href="{{ route('matriks.index') }}">
+                                    <i class="fa-brands fa-dropbox"></i>
+                                    <p>{{ __('Data Matriks') }}</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endif
             <li class="nav-item {{ $activePage == 'profile' || $activePage == 'user-management' ? ' active' : '' }}">
                 <a class="nav-link" data-toggle="collapse" href="#laravelExample" aria-expanded="true">
                     <i class="material-icons">supervised_user_circle</i>
@@ -95,40 +97,43 @@
                                 <span class="sidebar-normal">{{ __('User profile') }} </span>
                             </a>
                         </li>
-                        <li class="nav-item{{ $activePage == 'user-management' ? ' active' : '' }}">
-                            <a class="nav-link" href="{{ route('user.index') }}">
-                                <span class="sidebar-mini"> UM </span>
-                                <span class="sidebar-normal"> {{ __('User Management') }} </span>
-                            </a>
-                        </li>
+                        @if (auth()->user()->admin == 1)
+                            <li class="nav-item{{ $activePage == 'user-management' ? ' active' : '' }}">
+                                <a class="nav-link" href="{{ route('user.index') }}">
+                                    <span class="sidebar-mini"> UM </span>
+                                    <span class="sidebar-normal"> {{ __('User Management') }} </span>
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </li>
-
-            <li class="nav-item {{ $activePage == 'slider' || $activePage == 'setting' ? ' active' : '' }}">
-                <a class="nav-link" data-toggle="collapse" href="#plugin" aria-expanded="true">
-                    <i class="material-icons">settings_applications</i>
-                    <p>{{ __('Plugin Website') }}
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="plugin">
-                    <ul class="nav">
-                        <li class="nav-item{{ $activePage == 'slider' ? ' active' : '' }}">
-                            <a class="nav-link" href="{{ route('slider.index') }}">
-                                <span class="sidebar-mini"> SL </span>
-                                <span class="sidebar-normal">{{ __('Slider') }} </span>
-                            </a>
-                        </li>
-                        <li class="nav-item{{ $activePage == 'setting' ? ' active' : '' }}">
-                            <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> ST </span>
-                                <span class="sidebar-normal"> {{ __('Setting') }} </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
+            @if (auth()->user()->admin == 1)
+                <li class="nav-item {{ $activePage == 'slider' || $activePage == 'setting' ? ' active' : '' }}">
+                    <a class="nav-link" data-toggle="collapse" href="#plugin" aria-expanded="true">
+                        <i class="material-icons">settings_applications</i>
+                        <p>{{ __('Plugin Website') }}
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse" id="plugin">
+                        <ul class="nav">
+                            <li class="nav-item{{ $activePage == 'slider' ? ' active' : '' }}">
+                                <a class="nav-link" href="{{ route('slider.index') }}">
+                                    <span class="sidebar-mini"> SL </span>
+                                    <span class="sidebar-normal">{{ __('Slider') }} </span>
+                                </a>
+                            </li>
+                            <li class="nav-item{{ $activePage == 'setting' ? ' active' : '' }}">
+                                <a class="nav-link" href="#">
+                                    <span class="sidebar-mini"> ST </span>
+                                    <span class="sidebar-normal"> {{ __('Setting') }} </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endif
 
 
             {{-- <li class="nav-item{{ $activePage == 'typography' ? ' active' : '' }}">
