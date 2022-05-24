@@ -53,6 +53,54 @@
 
 
                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header bg-dark">
+                                <h4 class="card-title text-white">{{ __('Pusat Cluster Terakhir') }} </h4>
+                                {{-- <p class="card-category text-white"> {{ __('Proses perhitungan') }}</p> --}}
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table" width="100%">
+                                        <thead class="text-center">
+
+                                            {{-- <th>
+                                                {{ __('Iterasi') }}
+                                            </th> --}}
+                                            <th>
+                                                {{ __('Cluster') }}
+                                            </th>
+                                            <th>
+                                                {{ __('X1') }}
+                                            </th>
+                                            <th>
+                                                {{ __('X2') }}
+                                            </th>
+                                            <th>
+                                                {{ __('X3') }}
+                                            </th>
+
+                                        </thead>
+                                        <tbody class="text-center">
+                                            {{-- {{ dd($hasil->hasil_pusat_cluster) }} --}}
+                                            @php
+                                                $hasilCluster = json_decode($hasil->hasil_pusat_cluster);
+                                            @endphp
+                                            @foreach ($hasilCluster as $key => $values)
+                                                <tr>
+                                                    <td>C{{ $key + 1 }}</td>
+                                                    @foreach ($values as $key => $value)
+                                                        <td>{{ $value }}</td>
+                                                    @endforeach
+
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-header bg-dark">
@@ -172,7 +220,8 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header bg-dark">
-                                <h4 class="card-title text-white ">{{ __('Pengujian Partition Coefficient Index (PCI)') }} </h4>
+                                <h4 class="card-title text-white ">
+                                    {{ __('Pengujian Partition Coefficient Index (PCI)') }} </h4>
                             </div>
                             @if ($pci == null)
                                 <div class="row">
@@ -204,7 +253,7 @@
                                                     <tr>
                                                         <td>C{{ str_pad($loop->iteration, 4, '0', STR_PAD_LEFT) }}</td>
                                                         @foreach ($value as $key => $data)
-                                                        <td>{{ $data }}</td>
+                                                            <td>{{ $data }}</td>
                                                         @endforeach
                                                     </tr>
                                                 @endforeach
@@ -283,7 +332,7 @@
                         <div class="card-body">
                             <div class="col-12 text-center">
                                 <h3>Sepertinya Data Anda
-                                Kosong, Silahkan Hitung Terlebih Dahulu</h3>
+                                    Kosong, Silahkan Hitung Terlebih Dahulu</h3>
                                 <button type="button" class="btn btn-success" data-toggle="modal"
                                     data-target="#exampleModal">
                                     Hitung Ulang

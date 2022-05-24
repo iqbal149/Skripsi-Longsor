@@ -43,7 +43,10 @@ class PerhitunganController extends Controller
         $matriksPartU = [];
         $p[0] = 0;
         $fungsiObjektif = [];
+        $pusatClusterAkhir = [];
+
         $error = [];
+        $pusatC = [];
 
         for ($j = 0; $j < $maksIter; $j++) {
             $p[$j + 1] = 0;
@@ -84,12 +87,15 @@ class PerhitunganController extends Controller
                         $sumC[$i]['∑𝝁i^2*x3'] += $c[$i][$key]['𝝁i^2*x3'];
                     }
 
-                    $pusatC[$i]['∑𝝁i^2*x1'] = $sumC[$i]['∑𝝁i^2*x1'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x2'] = $sumC[$i]['∑𝝁i^2*x2'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x3'] = $sumC[$i]['∑𝝁i^2*x3'] / $sumC[$i]['∑𝝁i^2'];
+                    $pusatC[$j][$i]['∑𝝁i^2*x1'] = $sumC[$i]['∑𝝁i^2*x1'] / $sumC[$i]['∑𝝁i^2'];
+                    $pusatC[$j][$i]['∑𝝁i^2*x2'] = $sumC[$i]['∑𝝁i^2*x2'] / $sumC[$i]['∑𝝁i^2'];
+                    $pusatC[$j][$i]['∑𝝁i^2*x3'] = $sumC[$i]['∑𝝁i^2*x3'] / $sumC[$i]['∑𝝁i^2'];
+
+                // $pusatClusterAkhir[$i]['x1'] = $pusatC[$j][$i]['∑𝝁i^2*x1'];
+                // $pusatClusterAkhir[$i]['x2'] = $pusatC[$j][$i]['∑𝝁i^2*x2'];
+                // $pusatClusterAkhir[$i]['x3'] = $pusatC[$j][$i]['∑𝝁i^2*x3'];
 
                 }
-
                 foreach ($dataset as $key => $value) {
                     $sumL[$key] = 0;
                     $sumML[$key] = 0;
@@ -98,17 +104,17 @@ class PerhitunganController extends Controller
                 for ($i = 0; $i < $jumlahCluster; $i++) {
                     foreach ($dataset as $key => $value) {
                         $L[$i][$key] = (
-                            (pow($value->kejadian - $pusatC[$i]['∑𝝁i^2*x1'], 2)) +
-                            (pow($value->korban - $pusatC[$i]['∑𝝁i^2*x2'], 2)) +
-                            (pow($value->kerusakan - $pusatC[$i]['∑𝝁i^2*x3'], 2)) *
+                            (pow($value->kejadian - $pusatC[$j][$i]['∑𝝁i^2*x1'], 2)) +
+                            (pow($value->korban - $pusatC[$j][$i]['∑𝝁i^2*x2'], 2)) +
+                            (pow($value->kerusakan - $pusatC[$j][$i]['∑𝝁i^2*x3'], 2)) *
                             $c[$i][$key]['𝝁i^2']
                             );
 
                         $sumL[$key] += $L[$i][$key];
                         $ML[$i][$key] = (pow((
-                            (pow($value->kejadian - $pusatC[$i]['∑𝝁i^2*x1'], 2)) +
-                            (pow($value->korban - $pusatC[$i]['∑𝝁i^2*x2'], 2)) +
-                            (pow($value->kerusakan - $pusatC[$i]['∑𝝁i^2*x3'], 2))), -1)
+                            (pow($value->kejadian - $pusatC[$j][$i]['∑𝝁i^2*x1'], 2)) +
+                            (pow($value->korban - $pusatC[$j][$i]['∑𝝁i^2*x2'], 2)) +
+                            (pow($value->kerusakan - $pusatC[$j][$i]['∑𝝁i^2*x3'], 2))), -1)
                             );
 
                         $sumML[$key] += $ML[$i][$key];
@@ -156,6 +162,7 @@ class PerhitunganController extends Controller
                     }
                 }
 
+                // $pusatC = [];
                 for ($i = 0; $i < $jumlahCluster; $i++) {
                     foreach ($dataset as $key => $value) {
                         $sumC[$i]['∑𝝁i^2'] += $c[$i][$key]['𝝁i^2'];
@@ -164,10 +171,13 @@ class PerhitunganController extends Controller
                         $sumC[$i]['∑𝝁i^2*x3'] += $c[$i][$key]['𝝁i^2*x3'];
                     }
 
-                    $pusatC[$i]['∑𝝁i^2*x1'] = $sumC[$i]['∑𝝁i^2*x1'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x2'] = $sumC[$i]['∑𝝁i^2*x2'] / $sumC[$i]['∑𝝁i^2'];
-                    $pusatC[$i]['∑𝝁i^2*x3'] = $sumC[$i]['∑𝝁i^2*x3'] / $sumC[$i]['∑𝝁i^2'];
+                    $pusatC[$j][$i]['∑𝝁i^2*x1'] = $sumC[$i]['∑𝝁i^2*x1'] / $sumC[$i]['∑𝝁i^2'];
+                    $pusatC[$j][$i]['∑𝝁i^2*x2'] = $sumC[$i]['∑𝝁i^2*x2'] / $sumC[$i]['∑𝝁i^2'];
+                    $pusatC[$j][$i]['∑𝝁i^2*x3'] = $sumC[$i]['∑𝝁i^2*x3'] / $sumC[$i]['∑𝝁i^2'];
 
+                // $pusatClusterAkhir[$i]['x1'] = $pusatC[$j][$i]['∑𝝁i^2*x1'];
+                // $pusatClusterAkhir[$i]['x2'] = $pusatC[$j][$i]['∑𝝁i^2*x2'];
+                // $pusatClusterAkhir[$i]['x3'] = $pusatC[$j][$i]['∑𝝁i^2*x3'];
                 }
 
                 foreach ($dataset as $key => $value) {
@@ -178,17 +188,17 @@ class PerhitunganController extends Controller
                 for ($i = 0; $i < $jumlahCluster; $i++) {
                     foreach ($dataset as $key => $value) {
                         $L[$i][$key] = (
-                            (pow($value->kejadian - $pusatC[$i]['∑𝝁i^2*x1'], 2)) +
-                            (pow($value->korban - $pusatC[$i]['∑𝝁i^2*x2'], 2)) +
-                            (pow($value->kerusakan - $pusatC[$i]['∑𝝁i^2*x3'], 2)) *
+                            (pow($value->kejadian - $pusatC[$j][$i]['∑𝝁i^2*x1'], 2)) +
+                            (pow($value->korban - $pusatC[$j][$i]['∑𝝁i^2*x2'], 2)) +
+                            (pow($value->kerusakan - $pusatC[$j][$i]['∑𝝁i^2*x3'], 2)) *
                             $c[$i][$key]['𝝁i^2']
                             );
 
                         $sumL[$key] += $L[$i][$key];
                         $ML[$i][$key] = (pow((
-                            (pow($value->kejadian - $pusatC[$i]['∑𝝁i^2*x1'], 2)) +
-                            (pow($value->korban - $pusatC[$i]['∑𝝁i^2*x2'], 2)) +
-                            (pow($value->kerusakan - $pusatC[$i]['∑𝝁i^2*x3'], 2))), -1)
+                            (pow($value->kejadian - $pusatC[$j][$i]['∑𝝁i^2*x1'], 2)) +
+                            (pow($value->korban - $pusatC[$j][$i]['∑𝝁i^2*x2'], 2)) +
+                            (pow($value->kerusakan - $pusatC[$j][$i]['∑𝝁i^2*x3'], 2))), -1)
                             );
 
                         $sumML[$key] += $ML[$i][$key];
@@ -212,7 +222,24 @@ class PerhitunganController extends Controller
             if ((abs($p[$j + 1] - $p[$j]) <= $errorTerkecil)) {
                 break;
             }
+
+            for ($i = 0; $i < $jumlahCluster; $i++) {
+                $pusatClusterAkhir[$i]['x1'] = $pusatC[$j][$i]['∑𝝁i^2*x1'];
+                $pusatClusterAkhir[$i]['x2'] = $pusatC[$j][$i]['∑𝝁i^2*x2'];
+                $pusatClusterAkhir[$i]['x3'] = $pusatC[$j][$i]['∑𝝁i^2*x3'];
+            }
+
         }
+
+        // for ($i = 0; $i < $jumlahCluster; $i++) {
+        //     foreach ($dataset as $key => $value) {
+        //         $pusatClusterAkhir[$key][$i] = $pusatC[$j][$i]['∑𝝁i^2*x1'];
+        //         $pusatClusterAkhir[$key][$i] = $pusatC[$j][$i]['∑𝝁i^2*x2'];
+        //         $pusatClusterAkhir[$key][$i] = $pusatC[$j][$i]['∑𝝁i^2*x3'];
+        //     }
+        // }
+
+        // dd($j);
 
         $hasilCluster = [];
         $hasilL = [];
@@ -228,6 +255,7 @@ class PerhitunganController extends Controller
             $mHasilCluster[$key] = (array_search(max($hasilCluster[$key]), $hasilCluster[$key])) + 1;
             $hasilLT[$key] = $sumL[$key];
         }
+        // dd($pusatClusterAkhir);
 
         $simpan = [
             'hasil_jumlah_cluster' => $jumlahCluster,
@@ -238,7 +266,8 @@ class PerhitunganController extends Controller
             'hasil_LT' => json_encode($hasilLT),
             'hasil_cluster' => json_encode($mHasilCluster),
             'hasil_fungsi_objektif' => json_encode($fungsiObjektif),
-            'hasil_error' => json_encode($error)
+            'hasil_error' => json_encode($error),
+            'hasil_pusat_cluster' => json_encode($pusatClusterAkhir)
         ];
         //    dd($simpan);
         DB::table('hasil')->insert($simpan);
